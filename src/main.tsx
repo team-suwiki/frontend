@@ -9,7 +9,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { RecoilRoot } from 'recoil';
 import App from './App';
-initialize('UA-74092126-2');
+initialize('G-KG7KQ8K3GP');
 
 export const queryClient = new QueryClient({
   defaultOptions: {

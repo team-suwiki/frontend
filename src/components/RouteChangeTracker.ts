@@ -8,7 +8,7 @@ const RouteChangeTracker = () => {
 
   useEffect(() => {
     if (!window.location.href.includes('localhost')) {
-      initialize('UA-74092126-2');
+      initialize('G-KG7KQ8K3GP');
     }
     setInitialized(true);
   }, []);
