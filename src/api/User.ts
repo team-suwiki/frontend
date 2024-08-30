@@ -12,7 +12,7 @@ import type {
   RestrictionInfo,
   UserProfileInfo,
 } from 'types/user';
-import { queryClient } from '../index';
+import { queryClient } from '../main';
 import JwtInterceptors from './ApiController';
 import { Review } from 'types/evaluate';
 import { MyExam } from 'types/exam';

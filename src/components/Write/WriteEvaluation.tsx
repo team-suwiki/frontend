@@ -1,4 +1,4 @@
-import styled from '@emotion/styled/macro';
+import styled from '@emotion/styled';
 import { Fragment } from 'react';
 import SemesterSelect from 'components/SemesterSelect';
 import {

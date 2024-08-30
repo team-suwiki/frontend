@@ -3,24 +3,24 @@ import { FlexWrap } from 'styles/common';
 import { LectureCard } from 'components';
 import type { LectureDetailItem } from 'types/lecture';
 
-const LectureContainer = ({ data }: { data: LectureDetailItem[] }) => {
-  const oddList = data.filter((row, i) => !(i % 2) && row);
-  const evenList = data.filter((row, i) => i % 2 && row);
+const LectureContainer = ({ data }: { data?: LectureDetailItem[] }) => {
+  const oddList = data?.filter((row, i) => !(i % 2) && row);
+  const evenList = data?.filter((row, i) => i % 2 && row);
 
   return (
     <FlexWrap>
       <FlexWrapSub>
-        {oddList.map((row) => (
+        {oddList?.map((row) => (
           <LectureCard key={row.id} row={row} />
         ))}
       </FlexWrapSub>
       <FlexWrapSub>
-        {evenList.map((row) => (
+        {evenList?.map((row) => (
           <LectureCard key={row.id} row={row} />
         ))}
       </FlexWrapSub>
       <FullWrapSub>
-        {data.map((row) => (
+        {data?.map((row) => (
           <LectureCard key={row.id} row={row} />
         ))}
       </FullWrapSub>

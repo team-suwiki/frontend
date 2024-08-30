@@ -4,7 +4,8 @@ import jwtDecode, { type JwtPayload } from 'jwt-decode';
 import { useRecoilState } from 'recoil';
 import { isLoginStorage } from 'utils/loginStorage';
 import { logout, refresh } from './etc';
-const PROXY_URL = window.location.hostname === 'localhost' ? '' : '/proxy';
+
+const PROXY_URL = '/api';
 axios.defaults.withCredentials = true;
 
 const JwtInterceptors = () => {

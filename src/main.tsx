@@ -1,9 +1,7 @@
 import './styles/globalStyle.css';
 
 import axios from 'axios';
-import AsyncBoundary from 'components/AsyncBoundary';
 import { CACHE_TIME } from 'constants/cacheTime';
-import { BadGateway } from 'pages';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { initialize } from 'react-ga';
@@ -29,13 +27,11 @@ axios.defaults.withCredentials = true;
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <AsyncBoundary pendingFallback={<></>} rejectedFallback={() => <BadGateway />}>
-      <QueryClientProvider client={queryClient}>
-        <RecoilRoot>
-          <App />
-          <ReactQueryDevtools />
-        </RecoilRoot>
-      </QueryClientProvider>
-    </AsyncBoundary>
+    <QueryClientProvider client={queryClient}>
+      <RecoilRoot>
+        <App />
+        <ReactQueryDevtools />
+      </RecoilRoot>
+    </QueryClientProvider>
   </React.StrictMode>
 );
