@@ -20,7 +20,7 @@ import {
   Search,
   SignUp,
 } from 'pages';
-import RouteChangeTracker from 'RouteChangeTracker';
+import RouteChangeTracker from 'components/RouteChangeTracker';
 
 const App = () => {
   return (

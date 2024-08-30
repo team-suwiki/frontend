@@ -1,4 +1,4 @@
-import styled from '@emotion/styled/macro';
+import styled from '@emotion/styled';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { User } from 'api';
