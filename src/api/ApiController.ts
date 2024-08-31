@@ -6,14 +6,11 @@ import { isLoginStorage } from 'utils/loginStorage';
 
 import { logout, refresh } from './etc';
 
-export const PROXY_URL = window.location.hostname === 'localhost' ? '/api' : '/proxy';
 axios.defaults.withCredentials = true;
 
 const JwtInterceptors = () => {
   const [token, setToken] = useRecoilState(tokenState);
-  const instance = axios.create({
-    baseURL: `${PROXY_URL}`,
-  });
+  const instance = axios.create();
 
   //액세스토큰 유효성 검사
   const isAccessTokenValid = async () => {
