@@ -20,9 +20,9 @@ const TestInfoList = () => {
       {isExistData ? (
         <NoEvaluation>아직 평가한 강의가 없어요.</NoEvaluation>
       ) : (
-        data.pages.map((page) => {
+        data.pages.map((page, index) => {
           return (
-            <Wrapper key={page?.nextPage}>
+            <Wrapper key={index}>
               {page?.data.map((row) => <TestInfoCard key={row.id} row={row} />)}
             </Wrapper>
           );

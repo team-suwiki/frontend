@@ -70,8 +70,6 @@ export default [
     },
     rules: {
       ...commonRules,
-      //TODO: 추후 제거 예정 (변경 시 현재 동작에 영향이 가는 것을 고려해야함)
-      '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/consistent-type-imports': [
         'error',
         {

@@ -22,6 +22,11 @@ export interface ReviewOptions {
 
 export interface Review extends ExamPost, ReviewBase, ReviewOptions {}
 
+export interface ReviewResponse {
+  data: Review[];
+  written: boolean;
+}
+
 export interface PostReviewRequest extends ReviewBase {
   lectureName: string;
   professor: string;

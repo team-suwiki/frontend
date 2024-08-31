@@ -42,9 +42,9 @@ const LectureInfo = () => {
     </MenuTitle>
   ));
 
-  const clickFunc = (e: any, index: number) => {
+  const clickFunc = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, index: number) => {
     setMenuCheck(index);
-    setCheck(e.target.id);
+    setCheck(e.currentTarget.id);
   };
 
   return (

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { User } from 'api';
-import { EvaluationDetail, Modal,Spinner, WriteEvaluation } from 'components';
+import { EvaluationDetail, Modal, Spinner, WriteEvaluation } from 'components';
 import useUserQuery from 'hooks/useUserQuery';
 import { useState } from 'react';
 import StarRatings from 'react-star-ratings';
@@ -19,12 +19,10 @@ const EvaluationList = () => {
       {isExistData ? (
         <NoEvaluation>아직 평가한 강의가 없어요.</NoEvaluation>
       ) : (
-        data?.pages.map((page) => {
+        data?.pages.map((page, index) => {
           return (
-            <Wrapper key={page?.nextPage}>
-              {page?.data.map((row) => (
-                <EvaluationCard key={row.id} row={row} />
-              ))}
+            <Wrapper key={index}>
+              {page?.data.map((row) => <EvaluationCard key={row.id} row={row} />)}
             </Wrapper>
           );
         })

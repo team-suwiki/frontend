@@ -3,7 +3,7 @@ import { User } from 'api';
 import { EvaluationDetail, Spinner } from 'components';
 import { fakeEvaluationList } from 'constants/placeholderData';
 import useLectureQuery from 'hooks/useLectureQuery';
-import { Fragment,useState } from 'react';
+import { Fragment, useState } from 'react';
 import StarRatings from 'react-star-ratings';
 import type { Review } from 'types/evaluate';
 import { floatFix } from 'utils/floatFix';
@@ -49,11 +49,9 @@ const SearchEvaluationList = ({ selectId, setWritten, isLogin }: SearchEvaluatio
   return (
     <Wrapper>
       <div style={{ filter: !isLogin ? 'blur(10px)' : undefined }}>
-        {data?.pages?.map((page) => (
-          <Fragment key={page?.nextPage}>
-            {page?.data.map((lecture) => (
-              <Subject key={lecture.id} lecture={lecture} />
-            ))}
+        {data?.pages?.map((page, index) => (
+          <Fragment key={index}>
+            {page?.data.map((lecture) => <Subject key={lecture.id} lecture={lecture} />)}
           </Fragment>
         ))}
         <div ref={ref} style={{ marginBottom: '10px' }}>

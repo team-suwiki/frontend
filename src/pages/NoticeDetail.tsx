@@ -19,8 +19,8 @@ export const NoticeBox = () => {
   return (
     <Content>
       <Title>{data?.data.title}</Title>
-      {contents?.map((content) => (
-        <div key={content}>
+      {contents?.map((content, index) => (
+        <div key={index}>
           {content}
           <br />
         </div>

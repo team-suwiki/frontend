@@ -23,8 +23,8 @@ const WriteTestInfo = ({ setModalIsOpen, row, type }: WriteTestInfoProps) => {
     examInfo: row.examInfo.split(', '),
     examDifficulty: row.examDifficulty,
   }); //시험내용 옵션
-  const handleChange = (e: any) => {
-    const { name, value, checked } = e.target;
+  const handleChange = (e: React.FormEvent<HTMLFormElement>) => {
+    const { name, value, checked } = e.currentTarget;
     const { examInfo } = examOptions;
     const change = {
       examDifficulty: () => setExamOptions({ ...examOptions, examDifficulty: value }),

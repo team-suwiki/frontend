@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 import { User } from 'api';
-import { Button, SearchTestInfoList,Spinner } from 'components';
+import { Button, SearchTestInfoList, Spinner } from 'components';
 import { fakeEvaluationList } from 'constants/placeholderData';
 import useLectureQuery from 'hooks/useLectureQuery';
 import { isLoginStorage } from 'utils/loginStorage';
 
 interface IsTestInfoProps {
   selectId: string;
-  setWritten: (value: boolean) => void;
+  setWritten: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const IsTestInfo = ({ selectId, setWritten }: IsTestInfoProps) => {
@@ -22,10 +22,10 @@ const IsTestInfo = ({ selectId, setWritten }: IsTestInfoProps) => {
   if (isLoading || !data || !data.pages[0]) return <Spinner />;
 
   const listLength = data.pages[0].data.data.length;
-  const isExamDataExists = data?.pages[0].data.isExamDataExists;
+  const written = data?.pages[0].data.written;
 
   if (listLength === 0) {
-    return isExamDataExists ? <NotUsePoint selectId={selectId} /> : <NoTestInfo />;
+    return written ? <NotUsePoint selectId={selectId} /> : <NoTestInfo />;
   }
 
   return (

@@ -13,5 +13,5 @@ export interface MyExam extends ExamPost, ReviewOptions {}
 
 export interface ExamPostsResponse {
   data: ExamPost[];
-  isExamDataExists: boolean;
+  written: boolean;
 }

@@ -95,7 +95,7 @@ const useLectureQuery = () => {
   };
 
   // 강의평가 쿼리(key: 강의id)
-  const Evaluation = (id: string, setWritten: any) => {
+  const Evaluation = (id: string, setWritten: React.Dispatch<React.SetStateAction<boolean>>) => {
     const { ref, inView } = useInView();
     const { data, isFetchingNextPage, isLoading, fetchNextPage } = useInfiniteQuery(
       ['lecture', 'evaluationList', id],
@@ -106,7 +106,7 @@ const useLectureQuery = () => {
 
           return undefined;
         },
-        onSuccess: (data) => setWritten(data.pages[0]!.data),
+        onSuccess: (data) => setWritten(!!data.pages[0]?.written),
         cacheTime: CACHE_TIME.MINUTE_0,
         staleTime: CACHE_TIME.MINUTE_0,
         enabled: isLogin,
@@ -122,7 +122,7 @@ const useLectureQuery = () => {
   };
 
   // 시험정보 쿼리(key: 강의id)
-  const TestInfo = (id: string, setWritten: any) => {
+  const TestInfo = (id: string, setWritten: React.Dispatch<React.SetStateAction<boolean>>) => {
     const { ref, inView } = useInView();
     const { data, isFetchingNextPage, isLoading, fetchNextPage } = useInfiniteQuery(
       ['lecture', 'examList', id],
@@ -133,7 +133,7 @@ const useLectureQuery = () => {
 
           return undefined;
         },
-        onSuccess: (data) => setWritten(data.pages[0]!.data),
+        onSuccess: (data) => setWritten(!!data.pages[0]?.data.written),
         cacheTime: CACHE_TIME.MINUTE_0,
         staleTime: CACHE_TIME.MINUTE_0,
         enabled: isLogin,
