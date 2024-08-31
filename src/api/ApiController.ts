@@ -6,7 +6,7 @@ import { isLoginStorage } from 'utils/loginStorage';
 
 import { logout, refresh } from './etc';
 
-const PROXY_URL = window.location.hostname === 'localhost' ? '/api' : '/proxy';
+export const PROXY_URL = window.location.hostname === 'localhost' ? '/api' : '/proxy';
 axios.defaults.withCredentials = true;
 
 const JwtInterceptors = () => {

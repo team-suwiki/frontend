@@ -3,10 +3,14 @@ import axios from 'axios';
 import type { ClientRefresh } from 'types/user';
 import { removeStorage } from 'utils/loginStorage';
 
+import { PROXY_URL } from './ApiController';
+
 // 전공 선택 의존성때문에 따로 빼놓은 것
 export const type = async (Authorization: string) => {
   try {
-    const { data } = await axios.get(`/suwiki/majorType`, { headers: { Authorization } });
+    const { data } = await axios.get(`${PROXY_URL}/suwiki/majorType`, {
+      headers: { Authorization },
+    });
 
     return data;
   } catch (error) {
@@ -17,7 +21,7 @@ export const type = async (Authorization: string) => {
 
 export const searchFavorite = async (Authorization: string) => {
   try {
-    const { data } = await axios.get(`/user/favorite-major`, {
+    const { data } = await axios.get(`${PROXY_URL}/user/favorite-major`, {
       headers: { Authorization },
     });
 
@@ -31,7 +35,7 @@ export const searchFavorite = async (Authorization: string) => {
 // 로그아웃
 export const logout = async () => {
   try {
-    const { data } = await axios.post(`/user/client-logout`);
+    const { data } = await axios.post(`${PROXY_URL}/user/client-logout`);
     if (data.Success) {
       removeStorage('login');
       window.location.href = '/';
@@ -45,7 +49,7 @@ export const logout = async () => {
 // 리프레시
 export const refresh = () => {
   try {
-    const res = axios.post<ClientRefresh>(`/user/client-refresh`);
+    const res = axios.post<ClientRefresh>(`${PROXY_URL}/user/client-refresh`);
 
     return res;
   } catch (error) {
