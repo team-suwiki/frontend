@@ -9,8 +9,8 @@ import { floatFix } from 'utils/floatFix';
 import { subStr } from 'utils/subString';
 
 const EvaluationList = () => {
-  const { EvaluationList } = useUserQuery();
-  const { data, isLoading, isFetchingNextPage, ref } = EvaluationList();
+  const { evaluationList } = useUserQuery();
+  const { data, isLoading, isFetchingNextPage, ref } = evaluationList();
   if (isLoading) return <Spinner id="myInfo" />;
   const isExistData = data?.pages[0]?.data.length === 0;
 

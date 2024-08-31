@@ -11,9 +11,9 @@ interface IsTestInfoProps {
 }
 
 const IsTestInfo = ({ selectId, setWritten }: IsTestInfoProps) => {
-  const { TestInfo } = useLectureQuery();
+  const { testInfo } = useLectureQuery();
   const isLogin = isLoginStorage();
-  const { data, isLoading, isFetchingNextPage, ref } = TestInfo(selectId, setWritten);
+  const { data, isLoading, isFetchingNextPage, ref } = testInfo(selectId, setWritten);
 
   if (!isLogin) {
     return <SearchTestInfoList page={fakeEvaluationList} isLogin={false} />;

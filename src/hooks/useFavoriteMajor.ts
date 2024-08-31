@@ -22,21 +22,21 @@ const useFavoriteMajor = (setModalIsOpen: React.Dispatch<React.SetStateAction<bo
   const token = useRecoilValue(tokenState);
 
   // 즐겨찾기 추가/삭제
-  const onFavoriteMajor = (e: any) => {
+  const onFavoriteMajor = (e: React.MouseEvent<HTMLImageElement>) => {
     if (!isLoginStorage()) {
       alert('로그인 후 이용해주세요');
       navigate('/login');
 
       return;
     }
-    if (!favoriteDb.includes(e.target.alt)) {
-      setFavoriteDb(favoriteDb.concat([e.target.alt]));
-      favoriting(e.target.alt);
+    if (!favoriteDb.includes(e.currentTarget.alt)) {
+      setFavoriteDb(favoriteDb.concat([e.currentTarget.alt]));
+      favoriting(e.currentTarget.alt);
     } else {
-      setFavoriteDb(favoriteDb.filter((v) => v !== e.target.alt));
-      unfavoriting(e.target.alt);
+      setFavoriteDb(favoriteDb.filter((v) => v !== e.currentTarget.alt));
+      unfavoriting(e.currentTarget.alt);
     }
-    setSelectedMajor(e.target.alt);
+    setSelectedMajor(e.currentTarget.alt);
   };
 
   // 확인 버튼 클릭 이벤트
@@ -50,6 +50,7 @@ const useFavoriteMajor = (setModalIsOpen: React.Dispatch<React.SetStateAction<bo
   };
 
   // 전공 선택 변경
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const majorChange = (e: any) => setSelectedMajor(e.target.value);
 
   // 즐겨찾기 리스트 불러오기

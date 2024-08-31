@@ -8,7 +8,7 @@ import { isLoginStorage } from 'utils/loginStorage';
 const useUserQuery = () => {
   const user = User();
   // 내가 작성한 평가
-  const EvaluationList = () => {
+  const evaluationList = () => {
     const { ref, inView } = useInView();
     const { data, isLoading, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
       ['myInfo', 'myEvaluation'],
@@ -22,7 +22,7 @@ const useUserQuery = () => {
         enabled: isLoginStorage(),
         cacheTime: CACHE_TIME.MINUTE_30,
         staleTime: CACHE_TIME.MINUTE_30,
-      }
+      },
     );
     useEffect(() => {
       if (inView) {
@@ -34,7 +34,7 @@ const useUserQuery = () => {
   };
 
   // 내가 작성한 시험정보
-  const TestInfoList = () => {
+  const testInfoList = () => {
     const { ref, inView } = useInView();
     const { data, isLoading, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
       ['myInfo', 'myExamInfo'],
@@ -48,7 +48,7 @@ const useUserQuery = () => {
         enabled: isLoginStorage(),
         cacheTime: CACHE_TIME.MINUTE_30,
         staleTime: CACHE_TIME.MINUTE_30,
-      }
+      },
     );
     useEffect(() => {
       if (inView) {
@@ -59,6 +59,6 @@ const useUserQuery = () => {
     return { data, isLoading, isFetchingNextPage, ref };
   };
 
-  return { EvaluationList, TestInfoList };
+  return { evaluationList, testInfoList };
 };
 export default useUserQuery;

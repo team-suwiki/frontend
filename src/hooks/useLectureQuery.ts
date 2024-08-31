@@ -30,7 +30,7 @@ const useLectureQuery = () => {
   );
 
   // 검색 쿼리(key: 검색어,정렬,전공)
-  const Search = () => {
+  const search = () => {
     const { ref, inView } = useInView();
     const {
       data,
@@ -59,7 +59,7 @@ const useLectureQuery = () => {
   };
 
   // 강의 상세 쿼리(key: 강의id)
-  const Detail = () => {
+  const detail = () => {
     const { data, isLoading } = useQuery(
       ['lecture', 'detail', selectId],
       () => lecture.detail(selectId),
@@ -95,7 +95,7 @@ const useLectureQuery = () => {
   };
 
   // 강의평가 쿼리(key: 강의id)
-  const Evaluation = (id: string, setWritten: React.Dispatch<React.SetStateAction<boolean>>) => {
+  const evaluation = (id: string, setWritten: React.Dispatch<React.SetStateAction<boolean>>) => {
     const { ref, inView } = useInView();
     const { data, isFetchingNextPage, isLoading, fetchNextPage } = useInfiniteQuery(
       ['lecture', 'evaluationList', id],
@@ -122,7 +122,7 @@ const useLectureQuery = () => {
   };
 
   // 시험정보 쿼리(key: 강의id)
-  const TestInfo = (id: string, setWritten: React.Dispatch<React.SetStateAction<boolean>>) => {
+  const testInfo = (id: string, setWritten: React.Dispatch<React.SetStateAction<boolean>>) => {
     const { ref, inView } = useInView();
     const { data, isFetchingNextPage, isLoading, fetchNextPage } = useInfiniteQuery(
       ['lecture', 'examList', id],
@@ -148,7 +148,7 @@ const useLectureQuery = () => {
     return { data, isFetchingNextPage, isLoading, ref };
   };
 
-  return { getMainLecture, Search, Detail, Evaluation, TestInfo };
+  return { getMainLecture, search, detail, evaluation, testInfo };
 };
 
 export default useLectureQuery;

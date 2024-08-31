@@ -27,8 +27,8 @@ interface SearchEvaluationListProps {
 }
 
 const SearchEvaluationList = ({ selectId, setWritten, isLogin }: SearchEvaluationListProps) => {
-  const { Evaluation } = useLectureQuery();
-  const { data, isLoading, isFetchingNextPage, ref } = Evaluation(selectId, setWritten);
+  const { evaluation } = useLectureQuery();
+  const { data, isLoading, isFetchingNextPage, ref } = evaluation(selectId, setWritten);
 
   if (isLoading) return <Spinner id="nextPage" />;
 
