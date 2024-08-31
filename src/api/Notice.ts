@@ -1,6 +1,7 @@
+import type { AxiosError } from 'axios';
+
+import type { NoticeDetail, NoticeItem } from '../types/notice';
 import JwtInterceptors from './ApiController';
-import type { NoticeItem, NoticeDetail } from '../types/notice';
-import { AxiosError } from 'axios';
 
 const Notices = () => {
   const { instance } = JwtInterceptors();
@@ -8,6 +9,7 @@ const Notices = () => {
   const list = async (pageParam = 1) => {
     try {
       const res = await instance.get<NoticeItem[]>(`/notice/all?page=${pageParam}`);
+
       return {
         data: res,
         nextPage: pageParam + 1,
@@ -23,12 +25,14 @@ const Notices = () => {
   const detail = async (notice: string) => {
     try {
       const res = await instance.get<NoticeDetail>(`/notice/?noticeId=${notice}`);
+
       return res;
     } catch (error) {
       const axiosError = error as AxiosError;
       alert(axiosError.message);
     }
   };
+
   return { list, detail };
 };
 

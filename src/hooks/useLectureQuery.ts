@@ -26,7 +26,7 @@ const useLectureQuery = () => {
   const { data: getMainLecture } = useQuery(
     ['main', option, major],
     () => lecture.main(option, 1, major),
-    { keepPreviousData: true, suspense: true }
+    { keepPreviousData: true, suspense: true },
   );
 
   // 검색 쿼리(key: 검색어,정렬,전공)
@@ -43,16 +43,18 @@ const useLectureQuery = () => {
       {
         getNextPageParam: (lastPage) => {
           if (lastPage && !lastPage.isLast) return lastPage.nextPage;
+
           return undefined;
         },
         keepPreviousData: true,
-      }
+      },
     );
     useEffect(() => {
       if (inView) {
         getNextSearch();
       }
     }, [inView, getNextSearch]);
+
     return { data, searchLoading, nextLoading, value, ref };
   };
 
@@ -86,8 +88,9 @@ const useLectureQuery = () => {
             totalAvg: 0,
           });
         },
-      }
+      },
     );
+
     return { data, isLoading, isLogin: isLogin };
   };
 
@@ -100,19 +103,21 @@ const useLectureQuery = () => {
       {
         getNextPageParam: (lastPage) => {
           if (lastPage && !lastPage.isLast) return lastPage.nextPage;
+
           return undefined;
         },
         onSuccess: (data) => setWritten(data.pages[0]!.data),
         cacheTime: CACHE_TIME.MINUTE_0,
         staleTime: CACHE_TIME.MINUTE_0,
         enabled: isLogin,
-      }
+      },
     );
     useEffect(() => {
       if (inView && isLogin) {
         fetchNextPage();
       }
     }, [inView, fetchNextPage]);
+
     return { data, isFetchingNextPage, isLoading, ref };
   };
 
@@ -125,19 +130,21 @@ const useLectureQuery = () => {
       {
         getNextPageParam: (lastPage) => {
           if (lastPage && !lastPage.isLast) return lastPage.nextPage;
+
           return undefined;
         },
         onSuccess: (data) => setWritten(data.pages[0]!.data),
         cacheTime: CACHE_TIME.MINUTE_0,
         staleTime: CACHE_TIME.MINUTE_0,
         enabled: isLogin,
-      }
+      },
     );
     useEffect(() => {
       if (inView && isLogin) {
         fetchNextPage();
       }
     }, [inView, fetchNextPage]);
+
     return { data, isFetchingNextPage, isLoading, ref };
   };
 

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { FlexWrap } from 'styles/common';
 import { LectureCard } from 'components';
+import { FlexWrap } from 'styles/common';
 import type { LectureDetailItem } from 'types/lecture';
 
 const LectureContainer = ({ data }: { data?: LectureDetailItem[] }) => {

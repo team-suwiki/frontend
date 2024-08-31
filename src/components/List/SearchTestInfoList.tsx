@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { User } from 'api';
-import { ExamPost } from 'types/exam';
+import type { ExamPost } from 'types/exam';
 
 interface SearchTestInfoListProps {
   page: ExamPost[];

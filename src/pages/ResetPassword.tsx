@@ -1,7 +1,7 @@
 import { Auth } from 'api';
 import { Button } from 'components';
 import { CssTextField } from 'components/Etc/CssTextField';
-import { useForm, type SubmitHandler } from 'react-hook-form';
+import { type SubmitHandler,useForm } from 'react-hook-form';
 import { AuthWrapper, Checking, Container, Img, Sub, Title } from 'styles/common';
 import type { ResetPassword as ResetPasswordType } from 'types/user';
 import { validatePassword } from 'utils/validate';

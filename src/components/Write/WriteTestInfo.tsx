@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
-import { useMutation } from 'react-query';
 import { User } from 'api';
 import SemesterSelect from 'components/SemesterSelect';
 import { ExamSelectOptions, examTypes, semesters } from 'constants/placeholderData';
+import { useState } from 'react';
+import { useMutation } from 'react-query';
 import type { MyExam } from 'types/exam';
 
 type WriteTestProps = 'examDifficulty' | 'examInfo';
@@ -50,7 +50,7 @@ const WriteTestInfo = ({ setModalIsOpen, row, type }: WriteTestInfoProps) => {
       examType,
       examDifficulty: examOptions.examDifficulty,
       content,
-    })
+    }),
   );
 
   const examInfoUpdate = useMutation(() =>
@@ -60,7 +60,7 @@ const WriteTestInfo = ({ setModalIsOpen, row, type }: WriteTestInfoProps) => {
       examType,
       examDifficulty: examOptions.examDifficulty,
       content,
-    })
+    }),
   );
 
   const onTest = () => {
@@ -70,7 +70,11 @@ const WriteTestInfo = ({ setModalIsOpen, row, type }: WriteTestInfoProps) => {
     if (examOptions.examInfo.length === 0) return alert('시험유형(란)을 선택해주세요');
     if (content.length < 30 || content.length > 1000)
       return alert('최소 30자 이상 최대 1000자 이내로 입력해주세요');
-    type === 'update' ? examInfoUpdate.mutate() : examWriting.mutate();
+    if (type === 'update') {
+      examInfoUpdate.mutate();
+    } else {
+      examWriting.mutate();
+    }
     setModalIsOpen(false);
   };
 

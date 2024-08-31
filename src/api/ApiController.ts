@@ -3,6 +3,7 @@ import axios from 'axios';
 import jwtDecode, { type JwtPayload } from 'jwt-decode';
 import { useRecoilState } from 'recoil';
 import { isLoginStorage } from 'utils/loginStorage';
+
 import { logout, refresh } from './etc';
 
 const PROXY_URL = window.location.hostname === 'localhost' ? '/api' : '/proxy';
@@ -19,6 +20,7 @@ const JwtInterceptors = () => {
     if (!token) return false;
     const tokenInfo = jwtDecode<JwtPayload>(token);
     if (tokenInfo.exp && tokenInfo.exp <= Date.now() / 1000) return false;
+
     return true;
   };
   //토큰 리프레시
@@ -29,6 +31,7 @@ const JwtInterceptors = () => {
         throw new Error(`Response status is ${res?.status}`);
       } else {
         setToken(res.data.AccessToken);
+
         return res;
       }
     } catch (error) {
@@ -57,8 +60,9 @@ const JwtInterceptors = () => {
     },
     function (error) {
       alert('해당 요청이 정상적으로 이루어지지 않았어요.\n 다시 시도해주세요.');
+
       return Promise.reject(error);
-    }
+    },
   );
 
   instance.interceptors.response.use(
@@ -69,9 +73,11 @@ const JwtInterceptors = () => {
       if (error.response.status === 502) {
         location.href = '/502';
       }
+
       return Promise.reject(error);
-    }
+    },
   );
+
   return { instance };
 };
 

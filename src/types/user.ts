@@ -60,7 +60,7 @@ export interface EvaluatePostBase {
   content: string;
 }
 
-export interface EvaluatePostUpdate extends EvaluatePostBase {}
+export type EvaluatePostUpdate = EvaluatePostBase;
 
 export interface EvaluatePostCreate extends EvaluatePostBase {
   lectureName: string;

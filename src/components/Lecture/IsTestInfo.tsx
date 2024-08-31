@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import { Button, Spinner, SearchTestInfoList } from 'components';
-import { fakeEvaluationList } from 'constants/placeholderData';
-import { isLoginStorage } from 'utils/loginStorage';
-import useLectureQuery from 'hooks/useLectureQuery';
 import { User } from 'api';
+import { Button, SearchTestInfoList,Spinner } from 'components';
+import { fakeEvaluationList } from 'constants/placeholderData';
+import useLectureQuery from 'hooks/useLectureQuery';
+import { isLoginStorage } from 'utils/loginStorage';
 
 interface IsTestInfoProps {
   selectId: string;

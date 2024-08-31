@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { OptionBox, SelectedOption, Arrows, Options, Option } from 'styles/common';
+import { Arrows, Option, OptionBox, Options, SelectedOption } from 'styles/common';
 
 interface SemesterSelectProps {
   list: string[];
@@ -9,12 +9,13 @@ interface SemesterSelectProps {
 
 const SemesterSelect = ({ list, selected, setSelect }: SemesterSelectProps) => {
   const [modal, setModal] = useState(false);
+
   return (
     <OptionBox
       id="semester"
       select={modal}
       onClick={(e) => {
-        e.stopPropagation;
+        e.stopPropagation();
         setModal(!modal);
       }}
     >

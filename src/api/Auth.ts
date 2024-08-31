@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { AxiosResponseSuccess } from 'types/common';
-import {
+import type { AxiosResponseSuccess } from 'types/common';
+import type {
   FindPassword,
   ResetPassword,
   ResponseUserCheckID,
@@ -12,6 +12,7 @@ import {
   UserLoginResponse,
 } from 'types/user';
 import { removeStorage, setStorage } from 'utils/loginStorage';
+
 import { tokenState } from '../app/recoilStore';
 import JwtInterceptors from './ApiController';
 

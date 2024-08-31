@@ -1,9 +1,9 @@
-import { useInfiniteQuery } from 'react-query';
 import { User } from 'api';
-import { isLoginStorage } from 'utils/loginStorage';
+import { CACHE_TIME } from 'constants/cacheTime';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { CACHE_TIME } from 'constants/cacheTime';
+import { useInfiniteQuery } from 'react-query';
+import { isLoginStorage } from 'utils/loginStorage';
 
 const useUserQuery = () => {
   const user = User();
@@ -16,6 +16,7 @@ const useUserQuery = () => {
       {
         getNextPageParam: (lastPage) => {
           if (lastPage && !lastPage.isLast) return lastPage.nextPage;
+
           return undefined;
         },
         enabled: isLoginStorage(),
@@ -28,6 +29,7 @@ const useUserQuery = () => {
         fetchNextPage();
       }
     }, [inView, fetchNextPage]);
+
     return { data, isLoading, isFetchingNextPage, ref };
   };
 
@@ -40,6 +42,7 @@ const useUserQuery = () => {
       {
         getNextPageParam: (lastPage) => {
           if (lastPage && !lastPage.isLast) return lastPage.nextPage;
+
           return undefined;
         },
         enabled: isLoginStorage(),
@@ -52,6 +55,7 @@ const useUserQuery = () => {
         fetchNextPage();
       }
     }, [inView, fetchNextPage]);
+
     return { data, isLoading, isFetchingNextPage, ref };
   };
 

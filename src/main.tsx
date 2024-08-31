@@ -1,16 +1,17 @@
 import './styles/globalStyle.css';
 
 import axios from 'axios';
+import AsyncBoundary from 'components/AsyncBoundary';
 import { CACHE_TIME } from 'constants/cacheTime';
+import { BadGateway } from 'pages';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { initialize } from 'react-ga';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { RecoilRoot } from 'recoil';
+
 import App from './App';
-import AsyncBoundary from 'components/AsyncBoundary';
-import { BadGateway } from 'pages';
 initialize('G-KG7KQ8K3GP');
 
 export const queryClient = new QueryClient({

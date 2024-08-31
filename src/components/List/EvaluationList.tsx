@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
-import StarRatings from 'react-star-ratings';
-import { useState } from 'react';
-import { subStr } from 'utils/subString';
-import { EvaluationDetail, WriteEvaluation, Spinner, Modal } from 'components';
-import useUserQuery from 'hooks/useUserQuery';
-import { floatFix } from 'utils/floatFix';
 import { User } from 'api';
-import { Review } from 'types/evaluate';
+import { EvaluationDetail, Modal,Spinner, WriteEvaluation } from 'components';
+import useUserQuery from 'hooks/useUserQuery';
+import { useState } from 'react';
+import StarRatings from 'react-star-ratings';
+import type { Review } from 'types/evaluate';
+import { floatFix } from 'utils/floatFix';
+import { subStr } from 'utils/subString';
 
 const EvaluationList = () => {
   const { EvaluationList } = useUserQuery();

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { PropsWithChildren, useEffect } from 'react';
+import type { PropsWithChildren} from 'react';
+import { useEffect } from 'react';
 
 interface ModalProps {
   isOpen: boolean;
@@ -14,6 +15,7 @@ const Modal = ({ isOpen, onRequestClose, children }: PropsWithChildren<ModalProp
       }
     };
     window.addEventListener('keydown', onKeyPress);
+
     return () => window.removeEventListener('keydown', onKeyPress);
   }, [onRequestClose]);
 

@@ -1,9 +1,10 @@
 import { Auth } from 'api';
 import { Button } from 'components';
 import { CssTextField } from 'components/Etc/CssTextField';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import type { SubmitHandler} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { AuthWrapper, Container, Img, Sub, Title } from 'styles/common';
-import { UserLogin } from 'types/user';
+import type { UserLogin } from 'types/user';
 
 const Exit = () => {
   const { quit } = Auth();

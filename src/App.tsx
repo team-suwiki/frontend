@@ -1,5 +1,5 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Footer, Nav, ScrollButton } from 'components';
+import RouteChangeTracker from 'components/RouteChangeTracker';
 import {
   BadGateway,
   BanReason,
@@ -20,7 +20,7 @@ import {
   Search,
   SignUp,
 } from 'pages';
-import RouteChangeTracker from 'components/RouteChangeTracker';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 const App = () => {
   return (

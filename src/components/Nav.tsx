@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
+import { logout } from 'api/etc';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { isLoginStorage } from 'utils/loginStorage';
-import { logout } from 'api/etc';
 
 const Nav = () => {
   const navigate = useNavigate();

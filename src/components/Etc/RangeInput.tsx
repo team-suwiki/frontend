@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import styled from '@emotion/styled';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 interface RangeInputProps {
   min?: number;
@@ -46,6 +46,7 @@ const RangeInput = ({
     inputElement.addEventListener('mousedown', handleDown);
     inputElement.addEventListener('mouseup', handleUpAndLeave);
     inputElement.addEventListener('mouseleave', handleUpAndLeave);
+
     return () => {
       inputElement.removeEventListener('mousemove', changeInputProgressPercentStyle);
       inputElement.removeEventListener('mousedown', handleDown);

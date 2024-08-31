@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { Auth } from 'api';
 import { CssTextField } from 'components/Etc/CssTextField';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import type { FieldValues, SubmitHandler} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { AuthWrapper, Container, Img } from 'styles/common';
 

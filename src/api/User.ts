@@ -1,5 +1,7 @@
-import { AxiosError } from 'axios';
+import type { AxiosError } from 'axios';
 import type { AxiosResponseSuccess } from 'types/common';
+import type { Review } from 'types/evaluate';
+import type { MyExam } from 'types/exam';
 import type {
   BlacklistInfo,
   EvaluatePostCreate,
@@ -12,10 +14,9 @@ import type {
   RestrictionInfo,
   UserProfileInfo,
 } from 'types/user';
+
 import { queryClient } from '../main';
 import JwtInterceptors from './ApiController';
-import { Review } from 'types/evaluate';
-import { MyExam } from 'types/exam';
 
 const User = () => {
   const { instance } = JwtInterceptors();
@@ -23,6 +24,7 @@ const User = () => {
   const info = async () => {
     try {
       const data: UserProfileInfo = await instance.get('/user/my-page');
+
       return data;
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -34,6 +36,7 @@ const User = () => {
   const evaluateList = async (pageParam = 1) => {
     try {
       const { data } = await instance.get<Review[]>(`/evaluate-posts/written/?page=${pageParam}`);
+
       return {
         data,
         isLast: data.length < 10,
@@ -49,6 +52,7 @@ const User = () => {
   const examInfoList = async (pageParam = 1) => {
     try {
       const { data } = await instance.get<MyExam[]>(`/exam-posts/written/?page=${pageParam}`);
+
       return {
         data,
         isLast: data.length < 10,
@@ -74,6 +78,7 @@ const User = () => {
   const banList = async () => {
     try {
       const data: BlacklistInfo[] = await instance.get('user/blacklist-reason');
+
       return data;
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -85,6 +90,7 @@ const User = () => {
   const resList = async () => {
     try {
       const data: RestrictionInfo[] = await instance.get('user/restricted-reason');
+
       return data;
     } catch (error) {
       const axiosError = error as AxiosError;

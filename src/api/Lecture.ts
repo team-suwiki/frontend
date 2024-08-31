@@ -1,8 +1,9 @@
-import { AxiosError } from 'axios';
-import { ExamPostsResponse } from 'types/exam';
+import type { AxiosError } from 'axios';
+import type { Review } from 'types/evaluate';
+import type { ExamPostsResponse } from 'types/exam';
 import type { LectureDetailItem, MainLecture } from 'types/lecture';
+
 import JwtInterceptors from './ApiController';
-import { Review } from 'types/evaluate';
 
 const Lecture = () => {
   const { instance } = JwtInterceptors();
@@ -13,6 +14,7 @@ const Lecture = () => {
       const data: MainLecture = await instance.get(
         `/lecture/all/?option=${lecture}&page=${page}&majorType=${majorType}`
       );
+
       return data;
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -60,6 +62,7 @@ const Lecture = () => {
       const { data } = await instance.get<Review[]>(
         `/evaluate-posts/?lectureId=${selectId}&page=${pageParam}`
       );
+
       return {
         data,
         isLast: data.length < 10,
@@ -77,6 +80,7 @@ const Lecture = () => {
       const data: ExamPostsResponse = await instance.get(
         `/exam-posts/?lectureId=${selectId}&page=${pageParam}`
       );
+
       return {
         data,
         isLast: data.data.length < 10,

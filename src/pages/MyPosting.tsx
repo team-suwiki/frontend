@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
+import { Button, EvaluationList, TestInfoList } from 'components';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, EvaluationList, TestInfoList } from 'components';
 import { isLoginStorage } from 'utils/loginStorage';
 
 const MyPosting = () => {

@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
-import { LectureDetailItem } from 'types/lecture';
+import type { LectureDetailItem } from 'types/lecture';
 import { floatFix } from 'utils/floatFix';
 import { subStr } from 'utils/subString';
 

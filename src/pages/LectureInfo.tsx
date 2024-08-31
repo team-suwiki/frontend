@@ -66,8 +66,8 @@ const LectureInfo = () => {
                 !isLogin
                   ? alert('로그인해 주세요')
                   : !written
-                  ? setModalIsOpen(true)
-                  : alert(`이미 작성한 ${check}가 있습니다`)
+                    ? setModalIsOpen(true)
+                    : alert(`이미 작성한 ${check}가 있습니다`)
               }
             />
           </TitleWrapper>
