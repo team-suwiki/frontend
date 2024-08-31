@@ -12,6 +12,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { RecoilRoot } from 'recoil';
 
 import App from './App';
+
 initialize('G-KG7KQ8K3GP');
 
 export const queryClient = new QueryClient({
@@ -23,7 +24,7 @@ export const queryClient = new QueryClient({
     },
   },
 });
-const PROXY_URL = window.location.hostname === 'localhost' ? '' : '/proxy';
+const PROXY_URL = window.location.hostname === 'localhost' ? '/api' : '/proxy';
 
 axios.defaults.baseURL = PROXY_URL;
 axios.defaults.withCredentials = true;
@@ -38,5 +39,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         </RecoilRoot>
       </QueryClientProvider>
     </AsyncBoundary>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

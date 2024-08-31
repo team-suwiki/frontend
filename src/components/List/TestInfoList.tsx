@@ -9,8 +9,8 @@ import { subStr } from 'utils/subString';
 import type { ExamDiff } from './SearchTestInfoList';
 
 const TestInfoList = () => {
-  const { TestInfoList } = useUserQuery();
-  const { data, isLoading, isFetchingNextPage, ref } = TestInfoList();
+  const { testInfoList } = useUserQuery();
+  const { data, isLoading, isFetchingNextPage, ref } = testInfoList();
   const isExistData = data?.pages[0]?.data.length === 0;
 
   if (isLoading || !data) return <Spinner id="myInfo" />;

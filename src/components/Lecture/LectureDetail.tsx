@@ -3,8 +3,8 @@ import { fakeLectureInfo } from 'constants/placeholderData';
 import useLectureQuery from 'hooks/useLectureQuery';
 
 const LectureDetail = () => {
-  const { Detail } = useLectureQuery();
-  const { data, isLogin } = Detail();
+  const { detail } = useLectureQuery();
+  const { data, isLogin } = detail();
 
   return <LectureInfoBox isLogin={isLogin} current={data?.data ? data.data : fakeLectureInfo} />;
 };
