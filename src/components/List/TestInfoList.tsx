@@ -9,8 +9,8 @@ import { subStr } from 'utils/subString';
 import type { ExamDiff } from './SearchTestInfoList';
 
 const TestInfoList = () => {
-  const { TestInfoList } = useUserQuery();
-  const { data, isLoading, isFetchingNextPage, ref } = TestInfoList();
+  const { testInfoList } = useUserQuery();
+  const { data, isLoading, isFetchingNextPage, ref } = testInfoList();
   const isExistData = data?.pages[0]?.data.length === 0;
 
   if (isLoading || !data) return <Spinner id="myInfo" />;
@@ -20,9 +20,9 @@ const TestInfoList = () => {
       {isExistData ? (
         <NoEvaluation>아직 평가한 강의가 없어요.</NoEvaluation>
       ) : (
-        data.pages.map((page) => {
+        data.pages.map((page, index) => {
           return (
-            <Wrapper key={page?.nextPage}>
+            <Wrapper key={index}>
               {page?.data.map((row) => <TestInfoCard key={row.id} row={row} />)}
             </Wrapper>
           );

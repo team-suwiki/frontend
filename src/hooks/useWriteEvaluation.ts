@@ -31,10 +31,10 @@ const useWriteEvaluation = ({ setModalIsOpen, row, type }: WriteEvaluationProps)
     content,
   };
 
-  const onChangeContent = (e: any) => setContent(e.target.value);
+  const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value);
 
-  const onChangeLectureOptions = (e: any) =>
-    setLectureOptions({ ...lectureOptions, [e.target.name]: e.target.value });
+  const onChangeLectureOptions = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setLectureOptions({ ...lectureOptions, [e.target.name]: Number(e.target.value) });
 
   const onEvaluate = () => {
     if (selectedSemester === '' || selectedSemester === '선택') return alert('학기를 선택해주세요');

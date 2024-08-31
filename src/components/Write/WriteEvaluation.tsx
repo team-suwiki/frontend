@@ -81,20 +81,27 @@ const WriteEvaluation = ({ setModalIsOpen, row, type }: WriteEvaluationProps) =>
           );
         })}
         {EvaluationSelectOptions.map(({ id, title, options }) => (
-          <Content key={id} id="content" onChange={onChangeLectureOptions}>
+          <Content key={id} id="content">
             <ContentTitle>{title}</ContentTitle>
-            {options.map(({ id: level, name, value }) => (
-              <label key={level}>
-                <FormCheckLeft
-                  type="radio"
-                  name={id}
-                  id={level}
-                  value={value}
-                  defaultChecked={lectureOptions[id as LectureId] === value}
-                />
-                <FormCheckText>{name}</FormCheckText>
-              </label>
-            ))}
+            {options.map(({ id: level, name, value }) => {
+              console.log(name, lectureOptions, level, value);
+
+              return (
+                <label key={level}>
+                  <FormCheckLeft
+                    type="radio"
+                    name={id}
+                    id={level}
+                    value={value}
+                    checked={lectureOptions[id as LectureId] === value}
+                    onChange={onChangeLectureOptions}
+                  />
+                  <FormCheckText checked={lectureOptions[id as LectureId] === value}>
+                    {name}
+                  </FormCheckText>
+                </label>
+              );
+            })}
           </Content>
         ))}
       </ContentWrapper>
@@ -256,18 +263,19 @@ const EditButton = styled.button`
   }
 `;
 
-const FormCheckText = styled.span`
+const FormCheckText = styled.span<{ checked: boolean }>`
   font-size: 1vw;
   padding: 8px 15px;
-  background: #eee;
+  background-color: #eee;
   border-radius: 10px;
   border: none;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  color: #777;
+  color: ${(state) => (state.checked ? '#336af8' : '#777')};
   margin-right: 8px;
+
   @media only screen and (max-width: 550px) {
     font-size: 12px;
     padding: 6px 9px;
@@ -275,23 +283,5 @@ const FormCheckText = styled.span`
 `;
 
 const FormCheckLeft = styled.input`
-  &#difficult {
-    &:checked + ${FormCheckText} {
-      color: #7800ff;
-      font-weight: 600;
-    }
-  }
-  &#normal {
-    &:checked + ${FormCheckText} {
-      color: #222222;
-      font-weight: 600;
-    }
-  }
-  &#easy {
-    &:checked + ${FormCheckText} {
-      color: #336af8;
-      font-weight: 600;
-    }
-  }
   display: none;
 `;

@@ -4,8 +4,8 @@ import { sortOptions } from 'constants/placeholderData';
 import useLectureQuery from 'hooks/useLectureQuery';
 
 const Search = () => {
-  const { Search } = useLectureQuery();
-  const { data } = Search();
+  const { search } = useLectureQuery();
+  const { data } = search();
 
   const count = data?.pages[0]?.data.count ?? 0;
 

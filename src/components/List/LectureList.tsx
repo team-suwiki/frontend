@@ -19,14 +19,12 @@ interface LectureListProps {
 }
 
 const LectureList = ({ count, pages }: LectureListProps) => {
-  const { Search } = useLectureQuery();
-  const { nextLoading, value, ref } = Search();
+  const { search } = useLectureQuery();
+  const { nextLoading, value, ref } = search();
 
   return count ? (
     <>
-      {pages?.map((page) => (
-        <LectureContainer key={page?.nextPage} data={page?.data.data} />
-      ))}
+      {pages?.map((page, index) => <LectureContainer key={index} data={page?.data.data} />)}
       <div ref={ref} style={{ marginBottom: '10px' }}>
         {nextLoading ? <LectureContainer data={fakeLectureList} /> : null}
       </div>

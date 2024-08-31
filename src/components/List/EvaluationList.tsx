@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { User } from 'api';
-import { EvaluationDetail, Modal,Spinner, WriteEvaluation } from 'components';
+import { EvaluationDetail, Modal, Spinner, WriteEvaluation } from 'components';
 import useUserQuery from 'hooks/useUserQuery';
 import { useState } from 'react';
 import StarRatings from 'react-star-ratings';
@@ -9,8 +9,8 @@ import { floatFix } from 'utils/floatFix';
 import { subStr } from 'utils/subString';
 
 const EvaluationList = () => {
-  const { EvaluationList } = useUserQuery();
-  const { data, isLoading, isFetchingNextPage, ref } = EvaluationList();
+  const { evaluationList } = useUserQuery();
+  const { data, isLoading, isFetchingNextPage, ref } = evaluationList();
   if (isLoading) return <Spinner id="myInfo" />;
   const isExistData = data?.pages[0]?.data.length === 0;
 
@@ -19,12 +19,10 @@ const EvaluationList = () => {
       {isExistData ? (
         <NoEvaluation>아직 평가한 강의가 없어요.</NoEvaluation>
       ) : (
-        data?.pages.map((page) => {
+        data?.pages.map((page, index) => {
           return (
-            <Wrapper key={page?.nextPage}>
-              {page?.data.map((row) => (
-                <EvaluationCard key={row.id} row={row} />
-              ))}
+            <Wrapper key={index}>
+              {page?.data.map((row) => <EvaluationCard key={row.id} row={row} />)}
             </Wrapper>
           );
         })

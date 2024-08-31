@@ -1,5 +1,5 @@
 import type { AxiosError } from 'axios';
-import type { Review } from 'types/evaluate';
+import type { ReviewResponse } from 'types/evaluate';
 import type { ExamPostsResponse } from 'types/exam';
 import type { LectureDetailItem, MainLecture } from 'types/lecture';
 
@@ -12,7 +12,7 @@ const Lecture = () => {
   const main = async (lecture = 'modifiedDate', page = 1, majorType = '') => {
     try {
       const data: MainLecture = await instance.get(
-        `/lecture/all/?option=${lecture}&page=${page}&majorType=${majorType}`
+        `/lecture/all/?option=${lecture}&page=${page}&majorType=${majorType}`,
       );
 
       return data;
@@ -28,11 +28,11 @@ const Lecture = () => {
     searchValue = '{교수이름or과목이름}',
     pageParam = 1,
     option = 'modifiedDate',
-    major: string
+    major: string,
   ) => {
     try {
       const data: MainLecture = await instance.get(
-        `/lecture/search/?searchValue=${searchValue}&option=${option}&page=${pageParam}&majorType=${major}`
+        `/lecture/search/?searchValue=${searchValue}&option=${option}&page=${pageParam}&majorType=${major}`,
       );
 
       return {
@@ -59,12 +59,13 @@ const Lecture = () => {
   // 검색 결과 자세히보기 (Evaluation)
   const evaluation = async (selectId: string, pageParam = 1) => {
     try {
-      const { data } = await instance.get<Review[]>(
-        `/evaluate-posts/?lectureId=${selectId}&page=${pageParam}`
+      const { data, written }: ReviewResponse = await instance.get(
+        `/evaluate-posts/?lectureId=${selectId}&page=${pageParam}`,
       );
 
       return {
-        data,
+        data: data,
+        written: written,
         isLast: data.length < 10,
         nextPage: pageParam + 1,
       };
@@ -78,11 +79,12 @@ const Lecture = () => {
   const examInfo = async (selectId: string, pageParam = 1) => {
     try {
       const data: ExamPostsResponse = await instance.get(
-        `/exam-posts/?lectureId=${selectId}&page=${pageParam}`
+        `/exam-posts/?lectureId=${selectId}&page=${pageParam}`,
       );
 
       return {
         data,
+        written: data.written,
         isLast: data.data.length < 10,
         nextPage: pageParam + 1,
       };

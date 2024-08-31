@@ -29,7 +29,7 @@ export const NoticeContainer = () => {
       getNextPageParam: (lastPage) => {
         if (lastPage && !lastPage.isLast) return lastPage.nextPage;
       },
-    }
+    },
   );
   useEffect(() => {
     if (inView) {
@@ -41,11 +41,9 @@ export const NoticeContainer = () => {
 
   return (
     <>
-      {data.pages.map((page) => (
-        <Fragment key={page?.nextPage}>
-          {page?.data.data.map((notice) => (
-            <Item key={notice.id} notice={notice} />
-          ))}
+      {data.pages.map((page, index) => (
+        <Fragment key={index}>
+          {page?.data.data.map((notice) => <Item key={notice.id} notice={notice} />)}
         </Fragment>
       ))}
       <div ref={ref} style={{ marginBottom: '10px' }}>
