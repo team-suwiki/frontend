@@ -4,10 +4,9 @@ import useLectureQuery from 'hooks/useLectureQuery';
 
 const LectureDetail = () => {
   const { Detail } = useLectureQuery();
-  const { data, isLoading, isLogin } = Detail();
+  const { data, isLogin } = Detail();
 
-  if (isLoading || !data) return <LectureInfoBox current={fakeLectureInfo} />;
-  return <LectureInfoBox isLogin={isLogin} current={isLogin ? data.data : fakeLectureInfo} />;
+  return <LectureInfoBox isLogin={isLogin} current={data?.data ? data.data : fakeLectureInfo} />;
 };
 
 export default LectureDetail;

@@ -30,16 +30,26 @@ const SearchEvaluationList = ({ selectId, setWritten, isLogin }: SearchEvaluatio
   const { Evaluation } = useLectureQuery();
   const { data, isLoading, isFetchingNextPage, ref } = Evaluation(selectId, setWritten);
 
-  if (isLoading || !data) return <Spinner id="nextPage" />;
+  if (isLoading) return <Spinner id="nextPage" />;
 
-  const count = data.pages[0]?.data.length;
+  const count = data?.pages[0]?.data.length;
 
-  return !isLogin ? (
-    <FakeList />
-  ) : count !== 0 ? (
+  if (!isLogin) {
+    return <FakeList />;
+  }
+
+  if (count === 0) {
+    return (
+      <Wrapper>
+        <Content>등록된 강의평가가 없어요</Content>
+      </Wrapper>
+    );
+  }
+
+  return (
     <Wrapper>
       <div style={{ filter: !isLogin ? 'blur(10px)' : undefined }}>
-        {data.pages?.map((page) => (
+        {data?.pages?.map((page) => (
           <Fragment key={page?.nextPage}>
             {page?.data.map((lecture) => (
               <Subject key={lecture.id} lecture={lecture} />
@@ -50,10 +60,6 @@ const SearchEvaluationList = ({ selectId, setWritten, isLogin }: SearchEvaluatio
           {isFetchingNextPage ? <Spinner id="nextPage" /> : null}
         </div>
       </div>
-    </Wrapper>
-  ) : (
-    <Wrapper>
-      <Content>등록된 강의평가가 없어요</Content>
     </Wrapper>
   );
 };

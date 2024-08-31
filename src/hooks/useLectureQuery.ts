@@ -20,6 +20,8 @@ const useLectureQuery = () => {
   const major = majorType === '전체' ? '' : majorType;
   const value = searchValue === 'all' ? '' : searchValue;
 
+  const isLogin = isLoginStorage();
+
   // 메인 쿼리(key: 정렬,전공)
   const { data: getMainLecture } = useQuery(
     ['main', option, major],
@@ -62,7 +64,7 @@ const useLectureQuery = () => {
       {
         cacheTime: CACHE_TIME.MINUTE_0,
         staleTime: CACHE_TIME.MINUTE_0,
-        enabled: isLoginStorage(),
+        enabled: isLogin,
         onSuccess: (lecture) => {
           setLectureInfo({
             id: Number(selectId),
@@ -86,7 +88,7 @@ const useLectureQuery = () => {
         },
       }
     );
-    return { data, isLoading, isLogin: isLoginStorage() };
+    return { data, isLoading, isLogin: isLogin };
   };
 
   // 강의평가 쿼리(key: 강의id)
@@ -103,11 +105,11 @@ const useLectureQuery = () => {
         onSuccess: (data) => setWritten(data.pages[0]!.data),
         cacheTime: CACHE_TIME.MINUTE_0,
         staleTime: CACHE_TIME.MINUTE_0,
-        enabled: isLoginStorage(),
+        enabled: isLogin,
       }
     );
     useEffect(() => {
-      if (inView && isLoginStorage()) {
+      if (inView && isLogin) {
         fetchNextPage();
       }
     }, [inView, fetchNextPage]);
@@ -128,11 +130,11 @@ const useLectureQuery = () => {
         onSuccess: (data) => setWritten(data.pages[0]!.data),
         cacheTime: CACHE_TIME.MINUTE_0,
         staleTime: CACHE_TIME.MINUTE_0,
-        enabled: isLoginStorage(),
+        enabled: isLogin,
       }
     );
     useEffect(() => {
-      if (inView && isLoginStorage()) {
+      if (inView && isLogin) {
         fetchNextPage();
       }
     }, [inView, fetchNextPage]);

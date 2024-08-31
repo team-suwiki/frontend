@@ -10,7 +10,7 @@ interface LectureInfoBoxProps {
   isLogin?: boolean;
 }
 
-const LectureInfoBox = ({ current, isLogin = true }: LectureInfoBoxProps) => {
+const LectureInfoBox = ({ current, isLogin = false }: LectureInfoBoxProps) => {
   const navigate = useNavigate();
   const teamSet = Math.floor(current.lectureTeamAvg ?? 0) as SetTeamNumber;
   const homeworkSet = Math.floor(current.lectureHomeworkAvg ?? 0) as SetNumber;

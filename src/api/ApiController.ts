@@ -17,7 +17,7 @@ const JwtInterceptors = () => {
   //액세스토큰 유효성 검사
   const isAccessTokenValid = async () => {
     if (!token) return false;
-    const tokenInfo = await jwtDecode<JwtPayload>(token);
+    const tokenInfo = jwtDecode<JwtPayload>(token);
     if (tokenInfo.exp && tokenInfo.exp <= Date.now() / 1000) return false;
     return true;
   };
