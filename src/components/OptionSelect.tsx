@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Arrows, Option, OptionBox, Options, SelectedOption } from 'styles/common';
-import { SortOption } from 'types/common';
+import type { SortOption } from 'types/common';
 
 interface OptionSelectProps {
   list: SortOption[];
@@ -21,9 +21,11 @@ const OptionSelect = ({ list, itemTitle, location }: OptionSelectProps) => {
   const isMain = location === 'main';
 
   const handleSelect = (option: string) => {
-    isMain
-      ? navigate(`/?option=${option}&majorType=${majorType}`)
-      : navigate(`/search?q=${searchValue}&option=${option}&majorType=${majorType}`);
+    if (isMain) {
+      navigate(`/?option=${option}&majorType=${majorType}`);
+    } else {
+      navigate(`/search?q=${searchValue}&option=${option}&majorType=${majorType}`);
+    }
   };
 
   return (
@@ -32,7 +34,7 @@ const OptionSelect = ({ list, itemTitle, location }: OptionSelectProps) => {
       select={select}
       icon={isMain ? selectedOption?.icon : undefined}
       onClick={(e) => {
-        e.stopPropagation;
+        e.stopPropagation();
         onSelect(!select);
       }}
     >

@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
 import { Button } from 'components';
+import { useNavigate } from 'react-router-dom';
+import type { SetNumber, SetTeamNumber } from 'types/common';
+import type { LectureDetailItem } from 'types/lecture';
 import { floatFix } from 'utils/floatFix';
-import { LectureDetailItem } from 'types/lecture';
-import { SetNumber, SetTeamNumber } from 'types/common';
 
 interface LectureInfoBoxProps {
   current: LectureDetailItem;

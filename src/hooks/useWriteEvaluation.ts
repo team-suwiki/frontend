@@ -49,11 +49,16 @@ const useWriteEvaluation = ({ setModalIsOpen, row, type }: WriteEvaluationProps)
     if (lectureOptions.difficulty === undefined) return alert('학점(란)을 선택해주세요');
     if (content.length < 30 || content.length > 1000)
       return alert('최소 30자 이상 최대 1000자 이내로 입력해주세요');
-    type === 'update'
-      ? updateEvaluation(row.id.toString(), data)
-      : writeEvaluation(row.id.toString(), data);
+
+    if (type === 'update') {
+      updateEvaluation(row.id.toString(), data);
+    } else {
+      writeEvaluation(row.id.toString(), data);
+    }
+
     setModalIsOpen(false);
   };
+
   return {
     SliderOptions,
     lectureOptions,

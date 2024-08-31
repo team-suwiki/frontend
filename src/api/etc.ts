@@ -1,11 +1,13 @@
-import axios, { AxiosError } from 'axios';
-import { ClientRefresh } from 'types/user';
+import type { AxiosError } from 'axios';
+import axios from 'axios';
+import type { ClientRefresh } from 'types/user';
 import { removeStorage } from 'utils/loginStorage';
 
 // 전공 선택 의존성때문에 따로 빼놓은 것
 export const type = async (Authorization: string) => {
   try {
     const { data } = await axios.get(`/suwiki/majorType`, { headers: { Authorization } });
+
     return data;
   } catch (error) {
     const axiosError = error as AxiosError;
@@ -18,6 +20,7 @@ export const searchFavorite = async (Authorization: string) => {
     const { data } = await axios.get(`/user/favorite-major`, {
       headers: { Authorization },
     });
+
     return data;
   } catch (error) {
     const axiosError = error as AxiosError;
@@ -43,6 +46,7 @@ export const logout = async () => {
 export const refresh = () => {
   try {
     const res = axios.post<ClientRefresh>(`/user/client-refresh`);
+
     return res;
   } catch (error) {
     const axiosError = error as AxiosError;

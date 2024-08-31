@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 interface ButtonProps {
   onClick?: () => void;

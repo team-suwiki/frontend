@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
+import { useEffect,useState } from 'react';
 
 const ScrollButton = () => {
   const [ScrollY, setScrollY] = useState(0);
@@ -19,6 +19,7 @@ const ScrollButton = () => {
 
   useEffect(() => {
     window.addEventListener('scroll', handleFollow);
+
     return () => {
       window.removeEventListener('scroll', handleFollow);
     };

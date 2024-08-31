@@ -1,6 +1,7 @@
-import { AxiosError } from 'axios';
+import type { AxiosError } from 'axios';
+import type { VersionCheckSuccess } from 'types/common';
+
 import JwtInterceptors from './ApiController';
-import { VersionCheckSuccess } from 'types/common';
 
 const Major = () => {
   const { instance } = JwtInterceptors();
@@ -9,6 +10,7 @@ const Major = () => {
   const version = async () => {
     try {
       const res: VersionCheckSuccess = await instance.get('/suwiki/version');
+
       return res;
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -20,6 +22,7 @@ const Major = () => {
   const type = async () => {
     try {
       const res = await instance.get('/suwiki/majorType');
+
       return res;
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -31,6 +34,7 @@ const Major = () => {
   const searchFavorite = async () => {
     try {
       const res = await instance.get('/user/favorite-major');
+
       return res;
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -42,6 +46,7 @@ const Major = () => {
   const favoriting = async (majorType: string) => {
     try {
       const res = await instance.post('/user/favorite-major', { majorType });
+
       return res;
     } catch (error) {
       const axiosError = error as AxiosError;

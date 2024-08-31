@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { Review } from 'types/evaluate';
+import type { Review } from 'types/evaluate';
 
 export const lectureState = atom<Review>({
   key: 'lectureState',

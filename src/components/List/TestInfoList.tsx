@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
-import { WriteTestInfo, Spinner, Modal } from 'components';
-import { subStr } from 'utils/subString';
-import useUserQuery from 'hooks/useUserQuery';
 import { User } from 'api';
+import { Modal, Spinner, WriteTestInfo } from 'components';
+import useUserQuery from 'hooks/useUserQuery';
+import { useState } from 'react';
 import type { MyExam } from 'types/exam';
-import { ExamDiff } from './SearchTestInfoList';
+import { subStr } from 'utils/subString';
+
+import type { ExamDiff } from './SearchTestInfoList';
 
 const TestInfoList = () => {
   const { TestInfoList } = useUserQuery();
@@ -22,9 +23,7 @@ const TestInfoList = () => {
         data.pages.map((page) => {
           return (
             <Wrapper key={page?.nextPage}>
-              {page?.data.map((row) => (
-                <TestInfoCard key={row.id} row={row} />
-              ))}
+              {page?.data.map((row) => <TestInfoCard key={row.id} row={row} />)}
             </Wrapper>
           );
         })
@@ -43,7 +42,10 @@ export const TestInfoCard = ({ row }: { row: MyExam }) => {
   let mobileTitle = subStr(row.lectureName, 14);
 
   const onDelete = () => {
-    window.confirm('시험정보를 삭제하시겠습니까?') && deleteExamInfo(row.id.toString());
+    const isConfirmed = window.confirm('시험정보를 삭제하시겠습니까?');
+    if (isConfirmed) {
+      deleteExamInfo(row.id.toString());
+    }
   };
 
   const examDifficultySet = row.examDifficulty;

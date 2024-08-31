@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import * as styles from '@mui/material/styles';
-import { Fragment, useState } from 'react';
 import { TextField } from '@mui/material';
+import * as styles from '@mui/material/styles';
 import useFavoriteMajor from 'hooks/useFavoriteMajor';
+import { Fragment, useState } from 'react';
 
 const MajorSearch = ({
   setModalIsOpen,

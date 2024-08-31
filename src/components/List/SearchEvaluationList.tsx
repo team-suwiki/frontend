@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
-import StarRatings from 'react-star-ratings';
-import { useState, Fragment } from 'react';
 import { User } from 'api';
 import { EvaluationDetail, Spinner } from 'components';
 import { fakeEvaluationList } from 'constants/placeholderData';
 import useLectureQuery from 'hooks/useLectureQuery';
+import { Fragment,useState } from 'react';
+import StarRatings from 'react-star-ratings';
+import type { Review } from 'types/evaluate';
 import { floatFix } from 'utils/floatFix';
-import { Review } from 'types/evaluate';
 
 export const FakeList = () => {
   return (

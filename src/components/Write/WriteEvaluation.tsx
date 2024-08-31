@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { Fragment } from 'react';
 import SemesterSelect from 'components/SemesterSelect';
 import {
   EvaluationSelectOptions,
@@ -7,6 +6,7 @@ import {
   semesters,
 } from 'constants/placeholderData';
 import useWriteEvaluation from 'hooks/useWriteEvaluation';
+import { Fragment } from 'react';
 import type { Review } from 'types/evaluate';
 
 export interface WriteEvaluationProps {
@@ -29,6 +29,7 @@ const WriteEvaluation = ({ setModalIsOpen, row, type }: WriteEvaluationProps) =>
     onChangeLectureOptions,
     onEvaluate,
   } = useWriteEvaluation({ setModalIsOpen, row, type });
+
   return (
     <Wrapper>
       <TitleWrapper>
@@ -61,6 +62,7 @@ const WriteEvaluation = ({ setModalIsOpen, row, type }: WriteEvaluationProps) =>
         </MobileContent>
         {EvaluationSliderOptions.map(({ id, name }) => {
           const { state, Slider } = SliderOptions[id as SliderId];
+
           return (
             <Fragment key={id}>
               <Content>

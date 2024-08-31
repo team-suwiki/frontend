@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Auth } from 'api';
 import { CssTextField } from 'components/Etc/CssTextField';
 import { useEffect, useState } from 'react';
-import { useForm, type SubmitHandler } from 'react-hook-form';
+import { type SubmitHandler, useForm } from 'react-hook-form';
 import { AuthWrapper, Button, Checking, Container, Img } from 'styles/common';
 import type { UserJoin } from 'types/user';
 import {
@@ -32,14 +32,17 @@ const SignUp = () => {
   // 체크박스 전체선택시 모두선택 체크박스 활성화시키기
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     const targetName = e.target.name as CheckList;
-    e.target.checked
-      ? setCheckList([...checkList, targetName])
-      : setCheckList(checkList.filter((el) => el !== targetName));
+    setCheckList((prevCheckList) =>
+      e.target.checked
+        ? [...prevCheckList, targetName]
+        : prevCheckList.filter((item) => item !== targetName),
+    );
   };
 
   // 전체체크 선택시 전체 선택 or 전체해제
   const checkAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.target.checked ? setCheckList(['terms', 'privacy']) : setCheckList([]);
+    const isChecked = e.target.checked;
+    setCheckList(isChecked ? ['terms', 'privacy'] : []);
   };
 
   const handleIdCheck = () => checkId(setIdCheck, { loginId: formValues.loginId });

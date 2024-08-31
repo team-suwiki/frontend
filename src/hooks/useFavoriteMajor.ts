@@ -26,6 +26,7 @@ const useFavoriteMajor = (setModalIsOpen: React.Dispatch<React.SetStateAction<bo
     if (!isLoginStorage()) {
       alert('로그인 후 이용해주세요');
       navigate('/login');
+
       return;
     }
     if (!favoriteDb.includes(e.target.alt)) {
@@ -77,7 +78,12 @@ const useFavoriteMajor = (setModalIsOpen: React.Dispatch<React.SetStateAction<bo
       const data = getStorage('majorType');
       if (data) setData(data.split(','));
     };
-    getStorage('majorType') ? loadList() : getList();
+
+    if (getStorage('majorType')) {
+      loadList();
+    } else {
+      getList();
+    }
   }, [token]);
 
   return {

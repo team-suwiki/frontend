@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { UserEmail, UserId } from 'types/user';
+import type { UserEmail, UserId } from 'types/user';
 
 interface UserAccountProps extends UserId, UserEmail {
   isLogin: boolean;

@@ -2,6 +2,7 @@ const storage = localStorage;
 
 export const isLoginStorage = () => {
   const state = localStorage.login;
+
   return !!state;
 };
 
@@ -12,6 +13,7 @@ export const getStorage = (key: string, defaultValue = undefined) => {
     return storedValue || defaultValue;
   } catch (error) {
     console.error(error);
+
     return defaultValue;
   }
 };

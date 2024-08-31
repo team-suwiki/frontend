@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
 import { UserAccount, UserPoint } from 'components';
 import { fakeUserInfo } from 'constants/placeholderData';
+import { useNavigate } from 'react-router-dom';
+import type { UserProfileInfo } from 'types/user';
 import { isLoginStorage } from 'utils/loginStorage';
-import { UserProfileInfo } from 'types/user';
 
 interface UserInfoProps {
   my: UserProfileInfo;
@@ -14,7 +14,11 @@ const UserInfo = ({ my }: UserInfoProps) => {
   const isLogin = isLoginStorage();
 
   const handleNavigate = () => {
-    isLogin ? navigate('/myposting') : navigate('/login');
+    if (isLogin) {
+      navigate('/myposting');
+    } else {
+      navigate('/login');
+    }
   };
 
   const optionSlice = (start: number, end: number) => {

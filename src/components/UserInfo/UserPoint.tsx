@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { UserProfileInfo } from 'types/user';
+import type { UserProfileInfo } from 'types/user';
 
 interface UserPointProps {
   my: UserProfileInfo;

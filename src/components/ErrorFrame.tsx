@@ -10,6 +10,7 @@ interface ErrorFrameProps {
 
 const ErrorFrame = ({ mainMsg, subMsg }: ErrorFrameProps) => {
   const navigate = useNavigate();
+
   return (
     <Container>
       <Img src="images/signup.svg" width={400} />

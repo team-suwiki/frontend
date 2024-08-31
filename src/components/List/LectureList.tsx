@@ -2,7 +2,7 @@ import { LectureContainer } from 'components';
 import { fakeLectureList } from 'constants/placeholderData';
 import useLectureQuery from 'hooks/useLectureQuery';
 import { FlexWrap } from 'styles/common';
-import { MainLecture } from 'types/lecture';
+import type { MainLecture } from 'types/lecture';
 
 interface LectureListProps {
   pages:

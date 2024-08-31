@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { SetNumber, SetTeamNumber } from 'types/common';
-import { Review } from 'types/evaluate';
+import type { SetNumber, SetTeamNumber } from 'types/common';
+import type { Review } from 'types/evaluate';
 import { floatFix } from 'utils/floatFix';
 
 const team = {
