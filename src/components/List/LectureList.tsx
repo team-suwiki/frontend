@@ -20,7 +20,7 @@ interface LectureListProps {
 
 const LectureList = ({ count, pages }: LectureListProps) => {
   const { search } = useLectureQuery();
-  const { nextLoading, value, ref } = search();
+  const { nextLoading, value, ref } = search;
 
   return count ? (
     <>

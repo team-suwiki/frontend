@@ -7,6 +7,7 @@ import { Fragment, useState } from 'react';
 import StarRatings from 'react-star-ratings';
 import type { Review } from 'types/evaluate';
 import { floatFix } from 'utils/floatFix';
+import { isLoginStorage } from 'utils/loginStorage';
 
 export const FakeList = () => {
   return (
@@ -20,15 +21,10 @@ export const FakeList = () => {
   );
 };
 
-interface SearchEvaluationListProps {
-  selectId: string;
-  setWritten: React.Dispatch<React.SetStateAction<boolean>>;
-  isLogin: boolean;
-}
-
-const SearchEvaluationList = ({ selectId, setWritten, isLogin }: SearchEvaluationListProps) => {
+const SearchEvaluationList = () => {
   const { evaluation } = useLectureQuery();
-  const { data, isLoading, isFetchingNextPage, ref } = evaluation(selectId, setWritten);
+  const { data, isLoading, isFetchingNextPage, ref } = evaluation;
+  const isLogin = isLoginStorage();
 
   if (isLoading) return <Spinner id="nextPage" />;
 
