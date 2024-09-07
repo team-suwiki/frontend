@@ -15,36 +15,20 @@ import { useRecoilValue } from 'recoil';
 import { AppContainer } from 'styles/common';
 import { isLoginStorage } from 'utils/loginStorage';
 
-const menu = [
-  { name: '강의평가', option: '강의평가' },
-  { name: '시험정보', option: '시험정보' },
-];
-
-type CheckListNumber = 0 | 1;
+const CATEGORY = ['강의평가', '시험정보'] as const;
+type Category = (typeof CATEGORY)[number];
 
 const LectureInfo = () => {
-  const [check, setCheck] = useState('강의평가');
   const [written, setWritten] = useState(false);
-  const [menuCheck, setMenuCheck] = useState(0);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const lectureInfo = useRecoilValue(lectureState);
-  const [searchparams] = useSearchParams();
+  const [searchparams, setSearchParams] = useSearchParams();
   const selectId = searchparams.get('id') || '';
+  const selectCategory = (searchparams.get('category') as Category) || '강의평가';
   const isLogin = isLoginStorage();
 
-  const checkList = {
-    0: <SearchEvaluationList isLogin={isLogin} selectId={selectId} setWritten={setWritten} />,
-    1: <IsTestInfo selectId={selectId} setWritten={setWritten} />,
-  };
-  const menuList = menu.map((i, index) => (
-    <MenuTitle key={i.option} id={i.option} onClick={(e) => clickFunc(e, index)}>
-      {i.name}
-    </MenuTitle>
-  ));
-
-  const clickFunc = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, index: number) => {
-    setMenuCheck(index);
-    setCheck(e.currentTarget.id);
+  const handleCategory = (newCategory: Category) => {
+    setSearchParams({ category: newCategory });
   };
 
   return (
@@ -56,8 +40,18 @@ const LectureInfo = () => {
         <LectureDetail />
         {/* 강의 평가 / 시험 정보 리스트 */}
         <Content>
-          <TitleWrapper id="top">
-            <TitleWrapper id="bottom">{menuList}</TitleWrapper>
+          <TitleWrapper>
+            <List>
+              {CATEGORY.map((category) => (
+                <MenuTitle
+                  key={category}
+                  isSelected={category === selectCategory}
+                  onClick={() => handleCategory(category)}
+                >
+                  {category}
+                </MenuTitle>
+              ))}
+            </List>
             <Writing
               width={78}
               height={34}
@@ -67,16 +61,20 @@ const LectureInfo = () => {
                   ? alert('로그인해 주세요')
                   : !written
                     ? setModalIsOpen(true)
-                    : alert(`이미 작성한 ${check}가 있습니다`)
+                    : alert(`이미 작성한 ${selectCategory}가 있습니다`)
               }
             />
           </TitleWrapper>
-          {checkList[menuCheck as CheckListNumber]}
+          {selectCategory === '강의평가' ? (
+            <SearchEvaluationList isLogin={isLogin} selectId={selectId} setWritten={setWritten} />
+          ) : (
+            <IsTestInfo selectId={selectId} setWritten={setWritten} />
+          )}
         </Content>
       </Wrapper>
 
       <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-        {menuCheck === 0 ? (
+        {selectCategory === '강의평가' ? (
           <WriteEvaluation row={lectureInfo} type="write" setModalIsOpen={setModalIsOpen} />
         ) : (
           <WriteTestInfo row={lectureInfo} type="write" setModalIsOpen={setModalIsOpen} />
@@ -108,13 +106,12 @@ const TitleWrapper = styled.div`
   margin-bottom: 0.5rem;
   align-items: flex-end;
 
-  &#top {
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-  &#bottom {
-    margin-top: 1rem;
-  }
+  justify-content: space-between;
+  align-items: flex-start;
+`;
+
+const List = styled.ul`
+  display: flex;
 `;
 
 const Wrapper = styled.div`
@@ -122,13 +119,13 @@ const Wrapper = styled.div`
   margin: 0 auto;
 `;
 
-const MenuTitle = styled.li`
+const MenuTitle = styled.li<{ isSelected: boolean }>`
   font-size: 16px;
   margin-bottom: 1rem;
   text-align: center;
 
   display: flex;
-  color: lightgray;
+  color: ${({ isSelected }) => (isSelected ? 'black' : 'lightgray')};
   padding-right: 1rem;
 
   &:hover {
