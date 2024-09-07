@@ -9,6 +9,7 @@ import {
   WriteEvaluation,
   WriteTestInfo,
 } from 'components';
+import useLectureQuery from 'hooks/useLectureQuery';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
@@ -16,20 +17,21 @@ import { AppContainer } from 'styles/common';
 import { isLoginStorage } from 'utils/loginStorage';
 
 const CATEGORY = ['강의평가', '시험정보'] as const;
-type Category = (typeof CATEGORY)[number];
+export type Category = (typeof CATEGORY)[number];
 
 const LectureInfo = () => {
-  const [written, setWritten] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const lectureInfo = useRecoilValue(lectureState);
-  const [searchparams, setSearchParams] = useSearchParams();
-  const selectId = searchparams.get('id') || '';
-  const selectCategory = (searchparams.get('category') as Category) || '강의평가';
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectCategory = (searchParams.get('category') as Category) || '강의평가';
   const isLogin = isLoginStorage();
+  const { evaluation, testInfo } = useLectureQuery();
 
   const handleCategory = (newCategory: Category) => {
     setSearchParams({ category: newCategory });
   };
+
+  const isWritten = !!evaluation.data?.pages[0]?.written || !!testInfo.data?.pages[0]?.written;
 
   return (
     <AppContainer>
@@ -59,17 +61,13 @@ const LectureInfo = () => {
               onClick={() =>
                 !isLogin
                   ? alert('로그인해 주세요')
-                  : !written
+                  : !isWritten
                     ? setModalIsOpen(true)
                     : alert(`이미 작성한 ${selectCategory}가 있습니다`)
               }
             />
           </TitleWrapper>
-          {selectCategory === '강의평가' ? (
-            <SearchEvaluationList isLogin={isLogin} selectId={selectId} setWritten={setWritten} />
-          ) : (
-            <IsTestInfo selectId={selectId} setWritten={setWritten} />
-          )}
+          {selectCategory === '강의평가' ? <SearchEvaluationList /> : <IsTestInfo />}
         </Content>
       </Wrapper>
 

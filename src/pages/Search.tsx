@@ -5,7 +5,7 @@ import useLectureQuery from 'hooks/useLectureQuery';
 
 const Search = () => {
   const { search } = useLectureQuery();
-  const { data } = search();
+  const { data } = search;
 
   const count = data?.pages[0]?.data.count ?? 0;
 

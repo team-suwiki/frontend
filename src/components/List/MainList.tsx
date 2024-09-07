@@ -7,7 +7,7 @@ const MainList = () => {
 
   return (
     <LectureContainer
-      data={getMainLecture !== undefined ? getMainLecture?.data : fakeLectureList}
+      data={getMainLecture !== undefined ? getMainLecture?.data?.data : fakeLectureList}
     />
   );
 };

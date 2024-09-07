@@ -4,17 +4,19 @@ import { useNavigate } from 'react-router-dom';
 import type { SetNumber, SetTeamNumber } from 'types/common';
 import type { LectureDetailItem } from 'types/lecture';
 import { floatFix } from 'utils/floatFix';
+import { isLoginStorage } from 'utils/loginStorage';
 
 interface LectureInfoBoxProps {
   current: LectureDetailItem;
-  isLogin?: boolean;
 }
 
-const LectureInfoBox = ({ current, isLogin = false }: LectureInfoBoxProps) => {
+const LectureInfoBox = ({ current }: LectureInfoBoxProps) => {
   const navigate = useNavigate();
   const teamSet = Math.floor(current.lectureTeamAvg ?? 0) as SetTeamNumber;
   const homeworkSet = Math.floor(current.lectureHomeworkAvg ?? 0) as SetNumber;
   const difficultySet = Math.floor(current.lectureDifficultyAvg ?? 0) as SetNumber;
+
+  const isLogin = isLoginStorage();
 
   return (
     <Content id="top">

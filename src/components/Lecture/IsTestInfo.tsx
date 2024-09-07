@@ -3,17 +3,16 @@ import { User } from 'api';
 import { Button, SearchTestInfoList, Spinner } from 'components';
 import { fakeEvaluationList } from 'constants/placeholderData';
 import useLectureQuery from 'hooks/useLectureQuery';
+import { useSearchParams } from 'react-router-dom';
 import { isLoginStorage } from 'utils/loginStorage';
 
-interface IsTestInfoProps {
-  selectId: string;
-  setWritten: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const IsTestInfo = ({ selectId, setWritten }: IsTestInfoProps) => {
+const IsTestInfo = () => {
   const { testInfo } = useLectureQuery();
   const isLogin = isLoginStorage();
-  const { data, isLoading, isFetchingNextPage, ref } = testInfo(selectId, setWritten);
+  const { data, isLoading, isFetchingNextPage, ref } = testInfo;
+
+  const [searchParams] = useSearchParams();
+  const selectId = searchParams.get('id') || '';
 
   if (!isLogin) {
     return <SearchTestInfoList page={fakeEvaluationList} isLogin={false} />;
