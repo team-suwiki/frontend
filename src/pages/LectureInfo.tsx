@@ -28,9 +28,13 @@ const LectureInfo = () => {
   const { evaluation, testInfo } = useLectureQuery();
 
   const handleCategory = (newCategory: Category) => {
-    setSearchParams({ category: newCategory });
-  };
+    setSearchParams((prev) => {
+      const updatedParams = new URLSearchParams(prev);
+      updatedParams.set('category', newCategory);
 
+      return updatedParams;
+    });
+  };
   const isWritten = !!evaluation.data?.pages[0]?.written || !!testInfo.data?.pages[0]?.written;
 
   return (
