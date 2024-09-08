@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { lectureState } from 'app/recoilStore';
 import {
+  Button,
   IsTestInfo,
   LectureDetail,
   LectureSearch,
@@ -58,10 +59,8 @@ const LectureInfo = () => {
                 </MenuTitle>
               ))}
             </List>
-            <Writing
-              width={78}
-              height={34}
-              src="images/btn_write.svg"
+            <Button
+              width="78px"
               onClick={() =>
                 !isLogin
                   ? alert('로그인해 주세요')
@@ -69,7 +68,9 @@ const LectureInfo = () => {
                     ? setModalIsOpen(true)
                     : alert(`이미 작성한 ${selectCategory}가 있습니다`)
               }
-            />
+            >
+              쓰기
+            </Button>
           </TitleWrapper>
           {selectCategory === '강의평가' ? <SearchEvaluationList /> : <IsTestInfo />}
         </Content>
@@ -109,7 +110,7 @@ const TitleWrapper = styled.div`
   align-items: flex-end;
 
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
 `;
 
 const List = styled.ul`
@@ -123,19 +124,12 @@ const Wrapper = styled.div`
 
 const MenuTitle = styled.li<{ isSelected: boolean }>`
   font-size: 16px;
-  margin-bottom: 1rem;
   text-align: center;
 
   display: flex;
   color: ${({ isSelected }) => (isSelected ? 'black' : 'lightgray')};
   padding-right: 1rem;
 
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const Writing = styled.img`
   &:hover {
     cursor: pointer;
   }

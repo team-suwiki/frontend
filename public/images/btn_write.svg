@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="78" height="34" viewBox="0 0 78 34">
-    <path d="M9.512 0h58.976A9.765 9.765 0 0 1 78 10v14a9.765 9.765 0 0 1-9.512 10H9.512A9.765 9.765 0 0 1 0 24V10A9.765 9.765 0 0 1 9.512 0z" style="fill:#336af8"/>
-    <text transform="translate(38 23)" style="font-size:16px;font-family:Pretendard Variable;fill:#fff;font-weight:400"><tspan x="0" y="0">쓰기</tspan></text>
-    <g data-name="그룹 275" transform="translate(-1535.185 -643.326)">
-        <path data-name="다각형 14" d="M2.536.826a1 1 0 0 1 1.487 0l1.033 1.148a1 1 0 0 1-.743 1.669H2.245A1 1 0 0 1 1.5 1.974z" transform="rotate(-131.99 923.727 -9.25)" style="fill:#fff"/>
-        <rect data-name="사각형 105" width="5.101" height="19.674" rx="1" transform="rotate(48.01 51.484 2080.296)" style="fill:#fff"/>
-    </g>
-</svg>

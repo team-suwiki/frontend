@@ -153,7 +153,6 @@ export default LectureInfoBox;
 const Content = styled.div`
   border-radius: 10px;
   margin: 10px 0;
-  margin-bottom: 3rem;
   position: relative;
   &#top {
     padding: 1rem 2rem;
