@@ -1,8 +1,8 @@
+import { TextField } from '@mui/material';
 import { Auth } from 'api';
 import { Button } from 'components';
-import { CssTextField } from 'components/Etc/CssTextField';
 import { Loader } from 'components/Etc/Spinner';
-import { type SubmitHandler,useForm } from 'react-hook-form';
+import { type SubmitHandler, useForm } from 'react-hook-form';
 import { AuthWrapper, Container, Img, Sub, Title } from 'styles/common';
 import type { UserEmail } from 'types/user';
 import { validateEmail } from 'utils/validate';
@@ -23,7 +23,7 @@ const IdSearch = () => {
       <AuthWrapper onSubmit={handleSubmit(onEmailSubmit)}>
         <Title>아이디 찾기</Title>
         <Sub>학교 계정을 입력하세요</Sub>
-        <CssTextField
+        <TextField
           variant="standard"
           margin="normal"
           label="학교 이메일 입력(@suwon.ac.kr)"

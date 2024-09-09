@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
+import { TextField } from '@mui/material';
 import { Auth } from 'api';
-import { CssTextField } from 'components/Etc/CssTextField';
-import type { FieldValues, SubmitHandler} from 'react-hook-form';
+import type { FieldValues, SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { AuthWrapper, Container, Img } from 'styles/common';
@@ -34,14 +34,14 @@ const Login = () => {
       </picture>
       <AuthWrapper onSubmit={handleSubmit(loginAttempt)}>
         <Title>로그인</Title>
-        <CssTextField
+        <TextField
           variant="standard"
           margin="normal"
           required
           label="아이디"
           {...register('loginId')}
         />
-        <CssTextField
+        <TextField
           variant="standard"
           margin="normal"
           required

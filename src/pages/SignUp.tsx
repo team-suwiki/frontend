@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
+import { TextField } from '@mui/material';
 import { Auth } from 'api';
-import { CssTextField } from 'components/Etc/CssTextField';
 import { useEffect, useState } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { AuthWrapper, Button, Checking, Container, Img } from 'styles/common';
@@ -69,7 +69,7 @@ const SignUp = () => {
       <AuthWrapper onSubmit={handleSubmit(onSubmit)}>
         <Title>회원가입</Title>
         <InputWrapper id="top">
-          <CssTextField
+          <TextField
             variant="standard"
             margin="normal"
             label="아이디"
@@ -88,7 +88,7 @@ const SignUp = () => {
         </InputWrapper>
         {errors.loginId && <Checking>{errors.loginId.message}</Checking>}
 
-        <CssTextField
+        <TextField
           variant="standard"
           type="password"
           margin="normal"
@@ -96,7 +96,7 @@ const SignUp = () => {
           {...register('password', validatePassword)}
         />
         {errors.password && <Checking>{errors.password.message}</Checking>}
-        <CssTextField
+        <TextField
           variant="standard"
           type="password"
           margin="normal"
@@ -105,7 +105,7 @@ const SignUp = () => {
         />
         {errors.passwordConfirm && <Checking>{errors.passwordConfirm.message}</Checking>}
         <InputWrapper id="top">
-          <CssTextField
+          <TextField
             variant="standard"
             type="email"
             margin="normal"

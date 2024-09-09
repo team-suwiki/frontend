@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { TextField } from '@mui/material';
-import * as styles from '@mui/material/styles';
 import useFavoriteMajor from 'hooks/useFavoriteMajor';
 import { Fragment, useState } from 'react';
 
@@ -22,7 +21,8 @@ const MajorSearch = ({
       </TitleWrapper>
       <TitleLine />
       <InputWrapper>
-        <CssTextField
+        <TextField
+          fullWidth
           variant="standard"
           placeholder="개설학과를 검색하세요."
           value={searchMajor}
@@ -104,22 +104,6 @@ const InputWrapper = styled.div`
   margin-top: 40px;
 `;
 
-const CssTextField = styles.styled(TextField)({
-  width: '100%',
-  '& label.Mui-focused': {
-    color: '#336af8',
-  },
-  '& .MuiInput-underline:after': {
-    borderBottomColor: 'black',
-  },
-  '& .MuiInput-underline:before': {
-    borderBottomColor: 'black',
-  },
-  backgroundImage: `url('images/icon_search_24.svg')`,
-  backgroundRepeat: `no-repeat`,
-  backgroundPosition: `99% -10%`,
-});
-
 const TabWrapper = styled.div`
   display: flex;
   margin-top: 36px;
@@ -188,9 +172,5 @@ const SearchIcon = styled.img`
 `;
 
 const FormCheckLeft = styled.input`
-  &:checked + ${MajorSelect} {
-    color: #336af8;
-    background-color: #eeeeee;
-  }
   display: none;
 `;

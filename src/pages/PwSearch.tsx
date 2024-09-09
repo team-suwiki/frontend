@@ -1,8 +1,8 @@
+import { TextField } from '@mui/material';
 import { Auth } from 'api';
 import { Button } from 'components';
-import { CssTextField } from 'components/Etc/CssTextField';
 import { Loader } from 'components/Etc/Spinner';
-import { type SubmitHandler,useForm } from 'react-hook-form';
+import { type SubmitHandler, useForm } from 'react-hook-form';
 import { AuthWrapper, Container, Img, Sub, Title } from 'styles/common';
 import type { UserFindPw } from 'types/user';
 import { validateEmail } from 'utils/validate';
@@ -23,13 +23,13 @@ const PwSearch = () => {
       <AuthWrapper onSubmit={handleSubmit(onSubmit)}>
         <Title>비밀번호 찾기</Title>
         <Sub>아이디에 해당하는 학교 이메일로 임시 비밀번호를 전송합니다</Sub>
-        <CssTextField
+        <TextField
           variant="standard"
           margin="normal"
           label="아이디"
           {...register('loginId', { required: true })}
         />
-        <CssTextField
+        <TextField
           variant="standard"
           margin="normal"
           label="학교 이메일"

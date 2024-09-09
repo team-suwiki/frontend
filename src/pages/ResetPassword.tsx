@@ -1,7 +1,7 @@
+import { TextField } from '@mui/material';
 import { Auth } from 'api';
 import { Button } from 'components';
-import { CssTextField } from 'components/Etc/CssTextField';
-import { type SubmitHandler,useForm } from 'react-hook-form';
+import { type SubmitHandler, useForm } from 'react-hook-form';
 import { AuthWrapper, Checking, Container, Img, Sub, Title } from 'styles/common';
 import type { ResetPassword as ResetPasswordType } from 'types/user';
 import { validatePassword } from 'utils/validate';
@@ -22,7 +22,7 @@ const ResetPassword = () => {
       <AuthWrapper onSubmit={handleSubmit(onResetPwSubmit)}>
         <Title>비밀번호 변경</Title>
         <Sub>기존 비밀번호를 입력하세요</Sub>
-        <CssTextField
+        <TextField
           variant="standard"
           type="password"
           margin="normal"
@@ -32,7 +32,7 @@ const ResetPassword = () => {
 
         <Sub>새로운 비밀번호를 입력하세요</Sub>
 
-        <CssTextField
+        <TextField
           variant="standard"
           type="password"
           margin="normal"
