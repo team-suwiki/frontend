@@ -1,70 +1,66 @@
 import styled from '@emotion/styled';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { Notice as Notices } from 'api';
 import { Spinner } from 'components';
-import { Fragment, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useInfiniteQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { type NoticeItem } from 'types/notice';
 
-const Item = ({ notice }: { notice: NoticeItem }) => {
+const Notice = () => {
   const navigate = useNavigate();
-  const toDetail = () => navigate(`/notice/detail?id=${notice.id}`);
-
-  return (
-    <NoticeWrap onClick={toDetail}>
-      <Title>{notice.title}</Title>
-      <Option>{notice.modifiedDate.slice(0, 10)}</Option>
-    </NoticeWrap>
-  );
-};
-
-export const NoticeContainer = () => {
   const notice = Notices();
   const { ref, inView } = useInView();
-  const { data, isLoading, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
-    ['notice'],
-    () => notice.list(),
-    {
-      getNextPageParam: (lastPage) => {
-        if (lastPage && !lastPage.isLast) return lastPage.nextPage;
-      },
+
+  const { data, isLoading, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
+    queryKey: ['notice'],
+    queryFn: () => notice.list(),
+    getNextPageParam: (lastPage) => {
+      if (lastPage && !lastPage.isLast) return lastPage.nextPage;
+
+      return undefined;
     },
-  );
+    initialData: undefined,
+    initialPageParam: 1,
+  });
+
   useEffect(() => {
     if (inView) {
       fetchNextPage();
     }
   }, [inView, fetchNextPage]);
-  if (isLoading || data === undefined) return <Spinner id="notice" />;
-  if (data.pages.length === 0) return <NoNotice>아직 공지사항이 없어요.</NoNotice>;
 
-  return (
-    <>
-      {data.pages.map((page, index) => (
-        <Fragment key={index}>
-          {page?.data.data.map((notice) => <Item key={notice.id} notice={notice} />)}
-        </Fragment>
-      ))}
-      <div ref={ref} style={{ marginBottom: '10px' }}>
-        {isFetchingNextPage ? <Spinner /> : null}
-      </div>
-    </>
-  );
-};
-
-const Notice = () => {
   return (
     <AppContainer>
       <AppTitle>공지사항</AppTitle>
-      <NoticeContainer />
+      {isLoading || data === undefined ? (
+        <Spinner id="notice" />
+      ) : data.pages.length === 0 ? (
+        <NoNotice>아직 공지사항이 없어요.</NoNotice>
+      ) : (
+        <NoticeUl>
+          {data.pages.map((page) =>
+            page?.data.data.map((notice) => (
+              <NoticeWrap
+                key={notice.id}
+                onClick={() => navigate(`/notice/detail?id=${notice.id}`)}
+              >
+                <Title>{notice.title}</Title>
+                <Option>{notice.modifiedDate.slice(0, 10)}</Option>
+              </NoticeWrap>
+            )),
+          )}
+          <li ref={ref} style={{ marginBottom: '10px' }}>
+            {isFetchingNextPage ? <Spinner /> : null}
+          </li>
+        </NoticeUl>
+      )}
     </AppContainer>
   );
 };
 
 export default Notice;
 
-const AppContainer = styled.div`
+const AppContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -85,7 +81,6 @@ const AppTitle = styled.div`
   display: flex;
   width: 100%;
   font-size: 1.5rem;
-
   font-weight: 600;
   padding-top: 5rem;
   padding-bottom: 1rem;
@@ -102,11 +97,14 @@ const Option = styled.div`
   padding: 0.5rem 0;
   font-size: 0.8rem;
   color: #a3a3a3;
-
   font-weight: 300;
 `;
 
-const NoticeWrap = styled.div`
+const NoticeUl = styled.ul`
+  width: 100%;
+`;
+
+const NoticeWrap = styled.li`
   width: 100%;
   border: 1.5px solid #f1f1f1;
   padding: 1.5rem 1.5rem;
