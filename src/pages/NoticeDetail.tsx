@@ -1,18 +1,23 @@
 import styled from '@emotion/styled';
+import { useQuery } from '@tanstack/react-query';
 import { Notice } from 'api';
 import { Spinner } from 'components';
-import { CACHE_TIME } from 'constants/cacheTime';
-import { useQuery } from 'react-query';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export const NoticeBox = () => {
   const notice = Notice();
   const [searchParams] = useSearchParams();
-  const id = searchParams.get('id') as string;
-  const { data, isLoading } = useQuery(['notice_detail', id], () => notice.detail(id), {
-    cacheTime: CACHE_TIME.MINUTE_30,
-    staleTime: CACHE_TIME.MINUTE_30,
+  const id = searchParams.get('id');
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['notice_detail', id],
+    queryFn: () => {
+      if (id) {
+        return notice.detail(id);
+      }
+    },
   });
+
   if (isLoading) return <Spinner id="notice" />;
   const contents = data?.data.content.split('\n');
 
