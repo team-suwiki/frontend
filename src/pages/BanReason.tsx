@@ -1,17 +1,16 @@
 import styled from '@emotion/styled';
+import { useQuery } from '@tanstack/react-query';
 import { User } from 'api';
 import { BanFrame } from 'components';
-import { useQuery } from 'react-query';
 import { AppContainer } from 'styles/common';
 
 const BanReason = () => {
   const user = User();
-  const { data: banList } = useQuery(['myInfo', 'banList'], user.banList, {
-    suspense: true,
+  const { data: banList } = useQuery({
+    queryKey: ['myInfo', 'banList'],
+    queryFn: user.banList,
   });
-  const { data: resList } = useQuery(['myInfo', 'resList'], user.resList, {
-    suspense: true,
-  });
+  const { data: resList } = useQuery({ queryKey: ['myInfo', 'resList'], queryFn: user.resList });
 
   return (
     <AppContainer>
