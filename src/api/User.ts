@@ -104,7 +104,7 @@ const User = () => {
       const res = await instance.put(`/evaluate-posts/?evaluateIdx=${id}`, data);
       if (res) {
         alert('수정 완료');
-        queryClient.invalidateQueries(['myInfo', 'myEvaluation']);
+        queryClient.invalidateQueries({ queryKey: ['myInfo', 'myEvaluation'] });
       }
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -118,9 +118,9 @@ const User = () => {
       const res = await instance.post(`/evaluate-posts/?lectureId=${id}`, data);
       if (res) {
         alert('작성 완료');
-        queryClient.invalidateQueries(['lecture', 'evaluationList', id]);
-        queryClient.invalidateQueries(['lecture', 'detail', id]);
-        queryClient.invalidateQueries(['myInfo']);
+        queryClient.invalidateQueries({ queryKey: ['lecture', 'evaluationList', id] });
+        queryClient.invalidateQueries({ queryKey: ['lecture', 'detail', id] });
+        queryClient.invalidateQueries({ queryKey: ['myInfo'] });
       }
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -174,9 +174,9 @@ const User = () => {
       const res = await instance.post(`/exam-posts/?lectureId=${id}`, data);
       if (res) {
         alert('작성 완료');
-        queryClient.invalidateQueries(['lecture', 'examList', id]);
-        queryClient.invalidateQueries(['lecture', 'detail', id]);
-        queryClient.invalidateQueries(['myInfo']);
+        queryClient.invalidateQueries({ queryKey: ['lecture', 'examList', id] });
+        queryClient.invalidateQueries({ queryKey: ['lecture', 'detail', id] });
+        queryClient.invalidateQueries({ queryKey: ['myInfo'] });
       }
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -188,11 +188,11 @@ const User = () => {
   const buyTestInfo = async (id: string) => {
     try {
       const res: AxiosResponseSuccess = await instance.post(
-        `/exam-posts/purchase/?lectureId=${id}`
+        `/exam-posts/purchase/?lectureId=${id}`,
       );
       if (res.success) {
         alert('구매 완료');
-        queryClient.invalidateQueries(['lecture', 'examList', id]);
+        queryClient.invalidateQueries({ queryKey: ['lecture', 'examList', id] });
       }
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -206,7 +206,7 @@ const User = () => {
       const res = await instance.put(`/exam-posts/?examIdx=${id}`, data);
       if (res) {
         alert('수정 완료');
-        queryClient.invalidateQueries(['myInfo', 'myExamInfo']);
+        queryClient.invalidateQueries({ queryKey: ['myInfo', 'myExamInfo'] });
       }
     } catch (error) {
       const axiosError = error as AxiosError;

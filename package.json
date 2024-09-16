@@ -7,6 +7,7 @@
     "@emotion/styled": "^11.13.0",
     "@mui/material": "^6.0.1",
     "@tanstack/react-query": "^5.56.2",
+    "@tanstack/react-query-devtools": "^5.56.2",
     "axios": "^1.7.5",
     "jwt-decode": "^3.1.2",
     "react": "^18.3.1",
@@ -15,7 +16,6 @@
     "react-ga": "^3.3.1",
     "react-hook-form": "^7.53.0",
     "react-intersection-observer": "^9.13.0",
-    "react-query": "^3.39.3",
     "react-router-dom": "^6.26.1",
     "react-star-ratings": "^2.3.0",
     "recoil": "^0.7.7"
