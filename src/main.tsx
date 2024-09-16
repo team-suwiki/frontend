@@ -22,7 +22,14 @@ import App from './App';
 initialize('G-KG7KQ8K3GP');
 
 export const queryClient = new QueryClient4();
-const queryClient5 = new QueryClient5();
+const queryClient5 = new QueryClient5({
+  defaultOptions: {
+    queries: {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 const PROXY_URL = window.location.hostname === 'localhost' ? '/api' : '/proxy';
 
 axios.defaults.baseURL = PROXY_URL;

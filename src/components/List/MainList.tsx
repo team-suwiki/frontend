@@ -1,9 +1,20 @@
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { Lecture } from 'api';
 import { LectureContainer } from 'components';
 import { fakeLectureList } from 'constants/placeholderData';
-import useLectureQuery from 'hooks/useLectureQuery';
+import useRouter from 'hooks/useRouter';
 
 const MainList = () => {
-  const { getMainLecture } = useLectureQuery();
+  const lecture = Lecture();
+  const { query } = useRouter();
+  const option = query.option || 'modifiedDate';
+  const major = query.majorType || '전체';
+
+  const getMainLecture = useQuery({
+    queryKey: ['main', option, major],
+    queryFn: () => lecture.main(option, 1, major),
+    placeholderData: keepPreviousData,
+  });
 
   return (
     <LectureContainer

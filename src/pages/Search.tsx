@@ -1,13 +1,27 @@
 import styled from '@emotion/styled';
+import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
+import { Lecture } from 'api';
 import { LectureList, LectureSearch, MajorSelect, OptionSelect } from 'components';
 import { sortOptions } from 'constants/placeholderData';
-import useLectureQuery from 'hooks/useLectureQuery';
+import useRouter from 'hooks/useRouter';
 
 const Search = () => {
-  const { search } = useLectureQuery();
-  const { data } = search;
+  const lecture = Lecture();
+  const { query } = useRouter();
 
-  const count = data?.pages[0]?.data.count ?? 0;
+  const value = query.searchValue || '';
+  const option = query.option || 'modifiedDate';
+  const major = query.majorType || '';
+
+  const search = useInfiniteQuery({
+    queryKey: ['search', value, option, major],
+    initialPageParam: 1,
+    queryFn: ({ pageParam }) => lecture.search(value, pageParam, option, major),
+    getNextPageParam: (lastPage) => (lastPage && !lastPage.isLast ? lastPage.nextPage : undefined),
+    placeholderData: keepPreviousData,
+  });
+
+  const count = search.data?.pages[0]?.data.count ?? 0;
 
   return (
     <div>
@@ -29,7 +43,7 @@ const Search = () => {
         </SearchResultWrapper>
 
         <HeadSelection>
-          <LectureList pages={data?.pages} count={count} />
+          <LectureList />
         </HeadSelection>
       </Container>
     </div>

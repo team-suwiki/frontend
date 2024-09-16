@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { Lecture } from 'api';
 import { lectureState } from 'app/recoilStore';
 import {
   Button,
@@ -10,9 +12,9 @@ import {
   WriteEvaluation,
   WriteTestInfo,
 } from 'components';
-import useLectureQuery from 'hooks/useLectureQuery';
+import { CACHE_TIME } from 'constants/cacheTime';
+import useRouter from 'hooks/useRouter';
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { AppContainer } from 'styles/common';
 import { isLoginStorage } from 'utils/loginStorage';
@@ -21,15 +23,40 @@ const CATEGORY = ['강의평가', '시험정보'] as const;
 export type Category = (typeof CATEGORY)[number];
 
 const LectureInfo = () => {
+  const lecture = Lecture();
+
+  const { query, setParams } = useRouter();
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const lectureInfo = useRecoilValue(lectureState);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const selectCategory = (searchParams.get('category') as Category) || '강의평가';
+
+  const selectCategory = (query.category as Category) || '강의평가';
   const isLogin = isLoginStorage();
-  const { evaluation, testInfo } = useLectureQuery();
+
+  const selectId = query.id || '';
+
+  const evaluation = useInfiniteQuery({
+    queryKey: ['lecture', 'evaluationList', selectId],
+    initialPageParam: 1,
+    queryFn: ({ pageParam }) => lecture.evaluation(selectId, pageParam),
+    getNextPageParam: (lastPage) => (lastPage && !lastPage.isLast ? lastPage.nextPage : undefined),
+    gcTime: CACHE_TIME.MINUTE_0,
+    staleTime: CACHE_TIME.MINUTE_0,
+    enabled: isLogin && selectId !== '' && selectCategory === '강의평가',
+  });
+
+  const testInfo = useInfiniteQuery({
+    queryKey: ['lecture', 'examList', selectId],
+    initialPageParam: 1,
+    queryFn: ({ pageParam }) => lecture.examInfo(selectId, pageParam),
+    getNextPageParam: (lastPage) => (lastPage && !lastPage.isLast ? lastPage.nextPage : undefined),
+    gcTime: CACHE_TIME.MINUTE_0,
+    staleTime: CACHE_TIME.MINUTE_0,
+    enabled: isLogin && selectId !== '' && selectCategory === '시험정보',
+  });
 
   const handleCategory = (newCategory: Category) => {
-    setSearchParams((prev) => {
+    setParams((prev) => {
       const updatedParams = new URLSearchParams(prev);
       updatedParams.set('category', newCategory);
 

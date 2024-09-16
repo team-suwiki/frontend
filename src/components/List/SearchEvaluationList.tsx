@@ -1,9 +1,13 @@
 import styled from '@emotion/styled';
-import { User } from 'api';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { Lecture, User } from 'api';
 import { EvaluationDetail, Spinner } from 'components';
+import { CACHE_TIME } from 'constants/cacheTime';
 import { fakeEvaluationList } from 'constants/placeholderData';
-import useLectureQuery from 'hooks/useLectureQuery';
-import { Fragment, useState } from 'react';
+import useRouter from 'hooks/useRouter';
+import type { Category } from 'pages/LectureInfo';
+import { Fragment, useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import StarRatings from 'react-star-ratings';
 import type { Review } from 'types/evaluate';
 import { floatFix } from 'utils/floatFix';
@@ -22,9 +26,29 @@ export const FakeList = () => {
 };
 
 const SearchEvaluationList = () => {
-  const { evaluation } = useLectureQuery();
-  const { data, isLoading, isFetchingNextPage, ref } = evaluation;
+  const { query } = useRouter();
+  const { ref, inView } = useInView();
+
   const isLogin = isLoginStorage();
+  const lecture = Lecture();
+  const selectCategory = (query.category as Category) || '강의평가';
+  const selectId = query.id || '';
+
+  const { data, isLoading, isFetchingNextPage, fetchNextPage } = useInfiniteQuery({
+    queryKey: ['lecture', 'evaluationList', selectId],
+    initialPageParam: 1,
+    queryFn: ({ pageParam }) => lecture.evaluation(selectId, pageParam),
+    getNextPageParam: (lastPage) => (lastPage && !lastPage.isLast ? lastPage.nextPage : undefined),
+    gcTime: CACHE_TIME.MINUTE_0,
+    staleTime: CACHE_TIME.MINUTE_0,
+    enabled: isLogin && selectId !== '' && selectCategory === '강의평가',
+  });
+
+  useEffect(() => {
+    if (inView && isLogin) {
+      fetchNextPage();
+    }
+  }, [inView, isLogin, fetchNextPage]);
 
   if (isLoading) return <Spinner id="nextPage" />;
 

@@ -1,32 +1,42 @@
+import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
+import { Lecture } from 'api';
 import { LectureContainer } from 'components';
 import { fakeLectureList } from 'constants/placeholderData';
-import useLectureQuery from 'hooks/useLectureQuery';
+import useRouter from 'hooks/useRouter';
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { FlexWrap } from 'styles/common';
-import type { MainLecture } from 'types/lecture';
 
-interface LectureListProps {
-  pages:
-    | (
-        | {
-            data: MainLecture;
-            isLast: boolean;
-            nextPage: number;
-          }
-        | undefined
-      )[]
-    | undefined;
-  count: number;
-}
+const LectureList = () => {
+  const lecture = Lecture();
+  const { query } = useRouter();
+  const { ref, inView } = useInView();
 
-const LectureList = ({ count, pages }: LectureListProps) => {
-  const { search } = useLectureQuery();
-  const { nextLoading, value, ref } = search;
+  const value = query.searchValue || '';
+  const option = query.option || 'modifiedDate';
+  const major = query.majorType || '';
+
+  const { data, isFetchingNextPage, fetchNextPage } = useInfiniteQuery({
+    queryKey: ['search', value, option, major],
+    initialPageParam: 1,
+    queryFn: ({ pageParam }) => lecture.search(value, pageParam, option, major),
+    getNextPageParam: (lastPage) => (lastPage && !lastPage.isLast ? lastPage.nextPage : undefined),
+    placeholderData: keepPreviousData,
+  });
+
+  const count = data?.pages[0]?.data.count ?? 0;
+
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, inView]);
 
   return count ? (
     <>
-      {pages?.map((page, index) => <LectureContainer key={index} data={page?.data.data} />)}
+      {data?.pages?.map((page, index) => <LectureContainer key={index} data={page?.data.data} />)}
       <div ref={ref} style={{ marginBottom: '10px' }}>
-        {nextLoading ? <LectureContainer data={fakeLectureList} /> : null}
+        {isFetchingNextPage ? <LectureContainer data={fakeLectureList} /> : null}
       </div>
     </>
   ) : (
