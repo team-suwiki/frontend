@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
-import { Notice } from 'api';
+import { detail } from 'api/Notice';
 import { Spinner } from 'components';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export const NoticeBox = () => {
-  const notice = Notice();
   const [searchParams] = useSearchParams();
   const id = searchParams.get('id');
 
@@ -13,7 +12,7 @@ export const NoticeBox = () => {
     queryKey: ['notice_detail', id],
     queryFn: () => {
       if (id) {
-        return notice.detail(id);
+        return detail(id);
       }
     },
   });

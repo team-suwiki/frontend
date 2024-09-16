@@ -1,10 +1,9 @@
-import { User } from 'api';
+import { updateEvaluation, writeEvaluation } from 'api/User';
 import useSlider from 'components/Etc/RangeInput';
 import type { WriteEvaluationProps } from 'components/Write/WriteEvaluation';
 import { useState } from 'react';
 
 const useWriteEvaluation = ({ setModalIsOpen, row, type }: WriteEvaluationProps) => {
-  const { updateEvaluation, writeEvaluation } = User();
   const [content, setContent] = useState(row.content);
   const [selectedSemester, setSelectedSemester] = useState(row.selectedSemester); //학기
   const SliderOptions = {

@@ -1,24 +1,23 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
-import { User } from 'api';
+import { banList, resList } from 'api/User';
 import { BanFrame } from 'components';
 import { AppContainer } from 'styles/common';
 
 const BanReason = () => {
-  const user = User();
-  const { data: banList } = useQuery({
-    queryKey: ['myInfo', 'banList'],
-    queryFn: user.banList,
+  const { data: ban } = useQuery({
+    queryKey: ['myInfo', 'ban'],
+    queryFn: banList,
   });
-  const { data: resList } = useQuery({ queryKey: ['myInfo', 'resList'], queryFn: user.resList });
+  const { data: restrict } = useQuery({ queryKey: ['myInfo', 'restrict'], queryFn: resList });
 
   return (
     <AppContainer>
       <AppTitle>블랙리스트 내역조회</AppTitle>
-      <BanFrame banType="ban" list={banList} />
+      <BanFrame banType="ban" list={ban} />
 
       <AppTitle>이용제한 내역조회</AppTitle>
-      <BanFrame banType="res" list={resList} />
+      <BanFrame banType="res" list={restrict} />
     </AppContainer>
   );
 };

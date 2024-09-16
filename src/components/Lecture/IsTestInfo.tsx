@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { Lecture, User } from 'api';
+import { examInfo } from 'api/Lecture';
+import { buyTestInfo } from 'api/User';
 import { Button, SearchTestInfoList, Spinner } from 'components';
 import { CACHE_TIME } from 'constants/cacheTime';
 import { fakeEvaluationList } from 'constants/placeholderData';
@@ -14,7 +15,6 @@ const IsTestInfo = () => {
   const { query } = useRouter();
   const { ref, inView } = useInView();
 
-  const lecture = Lecture();
   const isLogin = isLoginStorage();
 
   const selectCategory = (query.category as Category) || '강의평가';
@@ -23,7 +23,7 @@ const IsTestInfo = () => {
   const { data, isLoading, isFetchingNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ['lecture', 'examList', selectId],
     initialPageParam: 1,
-    queryFn: ({ pageParam }) => lecture.examInfo(selectId, pageParam),
+    queryFn: ({ pageParam }) => examInfo(selectId, pageParam),
     getNextPageParam: (lastPage) => (lastPage && !lastPage.isLast ? lastPage.nextPage : undefined),
     gcTime: CACHE_TIME.MINUTE_0,
     staleTime: CACHE_TIME.MINUTE_0,
@@ -66,7 +66,6 @@ const IsTestInfo = () => {
 export default IsTestInfo;
 
 const NotUsePoint = ({ selectId }: { selectId: string }) => {
-  const { buyTestInfo } = User();
   const unlock = () => window.confirm('시험정보를 열람하시겠습니까?') && buyTestInfo(selectId);
 
   return (

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { Notice as Notices } from 'api';
+import { list } from 'api/Notice';
 import { Spinner } from 'components';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -8,12 +8,11 @@ import { useNavigate } from 'react-router-dom';
 
 const Notice = () => {
   const navigate = useNavigate();
-  const notice = Notices();
   const { ref, inView } = useInView();
 
   const { data, isLoading, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
     queryKey: ['notice'],
-    queryFn: () => notice.list(),
+    queryFn: () => list(),
     getNextPageParam: (lastPage) => {
       if (lastPage && !lastPage.isLast) return lastPage.nextPage;
 

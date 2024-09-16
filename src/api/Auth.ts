@@ -14,7 +14,7 @@ import type {
 import { removeStorage, setStorage } from 'utils/loginStorage';
 
 import { tokenState } from '../app/recoilStore';
-import JwtInterceptors from './ApiController';
+import { http } from '../hooks/useHttp';
 
 interface Errors {
   response: {
@@ -29,14 +29,13 @@ interface Errors {
 }
 
 const Auth = () => {
-  const { instance } = JwtInterceptors();
   const setToken = useSetRecoilState(tokenState);
   const navigate = useNavigate();
 
   //회원가입
   const register = async (data: UserJoin) => {
     try {
-      const res: AxiosResponseSuccess = await instance.post('user/join', {
+      const res: AxiosResponseSuccess = await http.post('user/join', {
         loginId: data.loginId,
         password: data.password,
         email: data.email,
@@ -51,7 +50,7 @@ const Auth = () => {
   //회원가입 아이디 중복확인
   const checkId = async (setIdCheck: (isId: boolean) => void, loginId: UserId) => {
     try {
-      const res: ResponseUserCheckID = await instance.post('user/check-id', loginId);
+      const res: ResponseUserCheckID = await http.post('user/check-id', loginId);
       setIdCheck(!res.overlap);
       if (!res.overlap) alert('사용가능합니다.');
       else alert('중복입니다.');
@@ -64,7 +63,7 @@ const Auth = () => {
   //회원가입 이메일 중복확인
   const checkEmail = async (setEmailCheck: (isEmail: boolean) => void, email: UserEmail) => {
     try {
-      const res: ResponseUserCheckID = await instance.post('user/check-email', email);
+      const res: ResponseUserCheckID = await http.post('user/check-email', email);
       setEmailCheck(!res.overlap);
       if (!res.overlap) alert('사용가능합니다.');
       else alert('중복입니다.');
@@ -77,7 +76,7 @@ const Auth = () => {
   //아이디 찾기
   const findId = async (email: UserEmail) => {
     try {
-      const res: AxiosResponseSuccess = await instance.post('user/find-id', email);
+      const res: AxiosResponseSuccess = await http.post('user/find-id', email);
       if (res.success) alert('해당 이메일로 아이디를 전송하였습니다');
     } catch (error) {
       const axiosError = error as Errors;
@@ -88,7 +87,7 @@ const Auth = () => {
   //비밀번호 찾기
   const findPw = async (data: FindPassword) => {
     try {
-      const res: AxiosResponseSuccess = await instance.post('user/find-pw', data);
+      const res: AxiosResponseSuccess = await http.post('user/find-pw', data);
       if (res.success) alert('해당 이메일로 임시 비밀번호를 발송하였습니다.');
     } catch (error) {
       const axiosError = error as Errors;
@@ -99,7 +98,7 @@ const Auth = () => {
   //로그인 (로그인유지)
   const login = async (userLogin: UserLogin) => {
     try {
-      const res: UserLoginResponse = await instance.post('user/client-login', userLogin);
+      const res: UserLoginResponse = await http.post('user/client-login', userLogin);
       setStorage('login', 'true');
       setToken(res.AccessToken);
       navigate('/');
@@ -112,7 +111,7 @@ const Auth = () => {
   //SUWIKI 비밀번호 변경
   const resetPassword = async (data: ResetPassword) => {
     try {
-      const res: AxiosResponseSuccess = await instance.post('user/reset-pw', data);
+      const res: AxiosResponseSuccess = await http.post('user/reset-pw', data);
       if (res.success) {
         alert('비밀번호가 변경되었습니다\n다시 로그인 해주세요');
         removeStorage('login');
@@ -127,7 +126,7 @@ const Auth = () => {
   //SUWIKI 회원 탈퇴
   const quit = async (login: UserLogin) => {
     try {
-      const res: AxiosResponseSuccess = await instance.post('user/quit', login);
+      const res: AxiosResponseSuccess = await http.post('user/quit', login);
       if (res.success) {
         alert('회원탈퇴가 완료되었습니다');
         removeStorage('login');

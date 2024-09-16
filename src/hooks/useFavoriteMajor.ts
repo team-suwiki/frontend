@@ -1,5 +1,5 @@
-import { Major } from 'api';
 import { searchFavorite, type } from 'api/etc';
+import { favoriting, unfavoriting } from 'api/Major';
 import { tokenState } from 'app/recoilStore';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
@@ -7,7 +7,6 @@ import { useRecoilValue } from 'recoil';
 import { getStorage, isLoginStorage, setStorage } from 'utils/loginStorage';
 
 const useFavoriteMajor = (setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>) => {
-  const { favoriting, unfavoriting } = Major();
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();

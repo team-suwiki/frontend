@@ -1,5 +1,6 @@
 import { Footer, Nav, ScrollButton } from 'components';
 import RouteChangeTracker from 'components/RouteChangeTracker';
+import { useHttp } from 'hooks/useHttp';
 import {
   BadGateway,
   BanReason,
@@ -20,11 +21,13 @@ import {
   Search,
   SignUp,
 } from 'pages';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 const App = () => {
+  useHttp();
+
   return (
-    <BrowserRouter>
+    <>
       <RouteChangeTracker />
       <Nav />
       <Routes>
@@ -50,7 +53,7 @@ const App = () => {
       </Routes>
       <ScrollButton />
       <Footer />
-    </BrowserRouter>
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { User } from 'api';
+import { deleteEvaluation, evaluateList } from 'api/User';
 import { EvaluationDetail, Modal, Spinner, WriteEvaluation } from 'components';
 import { CACHE_TIME } from 'constants/cacheTime';
 import { useEffect, useState } from 'react';
@@ -12,13 +12,12 @@ import { isLoginStorage } from 'utils/loginStorage';
 import { subStr } from 'utils/subString';
 
 const EvaluationList = () => {
-  const user = User();
   const { ref, inView } = useInView();
   // 내가 작성한 평가
   const { data, isLoading, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
     queryKey: ['myInfo', 'myEvaluation'],
     initialPageParam: 1,
-    queryFn: ({ pageParam }) => user.evaluateList(pageParam),
+    queryFn: ({ pageParam }) => evaluateList(pageParam),
     getNextPageParam: (lastPage) => {
       if (lastPage && !lastPage.isLast) return lastPage.nextPage;
 
@@ -59,7 +58,6 @@ const EvaluationList = () => {
 };
 
 export const EvaluationCard = ({ row }: { row: Review }) => {
-  const { deleteEvaluation } = User();
   const [modal, setModal] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const title = subStr(row.lectureName!, 14);

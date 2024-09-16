@@ -9,21 +9,9 @@ const LectureContainer = ({ data }: { data?: LectureDetailItem[] }) => {
 
   return (
     <FlexWrap>
-      <FlexWrapSub>
-        {oddList?.map((row) => (
-          <LectureCard key={row.id} row={row} />
-        ))}
-      </FlexWrapSub>
-      <FlexWrapSub>
-        {evenList?.map((row) => (
-          <LectureCard key={row.id} row={row} />
-        ))}
-      </FlexWrapSub>
-      <FullWrapSub>
-        {data?.map((row) => (
-          <LectureCard key={row.id} row={row} />
-        ))}
-      </FullWrapSub>
+      <FlexWrapSub>{oddList?.map((row) => <LectureCard key={row.id} row={row} />)}</FlexWrapSub>
+      <FlexWrapSub>{evenList?.map((row) => <LectureCard key={row.id} row={row} />)}</FlexWrapSub>
+      <FullWrapSub>{data?.map((row) => <LectureCard key={row.id} row={row} />)}</FullWrapSub>
     </FlexWrap>
   );
 };

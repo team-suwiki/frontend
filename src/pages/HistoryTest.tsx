@@ -1,13 +1,12 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
-import { User } from 'api';
+import { purchasedTestInfo } from 'api/User';
 import { AppContainer } from 'styles/common';
 
 const HistoryTest = () => {
-  const user = User();
   const { data } = useQuery({
     queryKey: ['myInfo', 'purchasedTestInfo'],
-    queryFn: user.purchasedTestInfo,
+    queryFn: purchasedTestInfo,
   });
 
   return (

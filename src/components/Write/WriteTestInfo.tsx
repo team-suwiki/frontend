@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useMutation } from '@tanstack/react-query';
-import { User } from 'api';
+import { UpdateExamInfo, writeExamInfo } from 'api/User';
 import SemesterSelect from 'components/SemesterSelect';
 import { ExamSelectOptions, examTypes, semesters } from 'constants/placeholderData';
 import { useState } from 'react';
@@ -15,7 +15,6 @@ interface WriteTestInfoProps {
 }
 
 const WriteTestInfo = ({ setModalIsOpen, row, type }: WriteTestInfoProps) => {
-  const user = User();
   const [selectedSemester, setSelectedSemester] = useState(row.selectedSemester); //학기
   const [examType, setExamType] = useState(row.examType); //중간,기말
   const [content, setContent] = useState(row.content); //글쓰기
@@ -44,7 +43,7 @@ const WriteTestInfo = ({ setModalIsOpen, row, type }: WriteTestInfoProps) => {
   };
   const examWriting = useMutation({
     mutationFn: () =>
-      user.writeExamInfo(row.id.toString(), {
+      writeExamInfo(row.id.toString(), {
         lectureName: row.lectureName,
         professor: row.professor,
         selectedSemester,
@@ -57,7 +56,7 @@ const WriteTestInfo = ({ setModalIsOpen, row, type }: WriteTestInfoProps) => {
 
   const examInfoUpdate = useMutation({
     mutationFn: () =>
-      user.UpdateExamInfo(row.id.toString(), {
+      UpdateExamInfo(row.id.toString(), {
         selectedSemester,
         examInfo: examOptions.examInfo.join(', '),
         examType,

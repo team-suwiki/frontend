@@ -1,16 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { tokenState } from 'app/recoilStore';
 import axios from 'axios';
 import jwtDecode, { type JwtPayload } from 'jwt-decode';
+import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { isLoginStorage } from 'utils/loginStorage';
 
-import { logout, refresh } from './etc';
+import { logout, refresh } from '../api/etc';
 
-axios.defaults.withCredentials = true;
+const PROXY_URL = window.location.hostname === 'localhost' ? '/api' : '/proxy';
 
-const JwtInterceptors = () => {
+const http = axios.create({
+  withCredentials: true,
+  baseURL: PROXY_URL,
+});
+
+const useHttp = () => {
   const [token, setToken] = useRecoilState(tokenState);
-  const instance = axios.create();
 
   //액세스토큰 유효성 검사
   const isAccessTokenValid = async () => {
@@ -36,7 +42,7 @@ const JwtInterceptors = () => {
     }
   };
 
-  instance.interceptors.request.use(
+  const requestInterceptor = http.interceptors.request.use(
     async (config) => {
       const tokenValid = await isAccessTokenValid();
       const isLogin = isLoginStorage();
@@ -62,11 +68,11 @@ const JwtInterceptors = () => {
     },
   );
 
-  instance.interceptors.response.use(
-    function (response) {
+  const responseInterceptor = http.interceptors.response.use(
+    (response) => {
       return response.data;
     },
-    async (error) => {
+    (error) => {
       if (error.response.status === 502) {
         location.href = '/502';
       }
@@ -75,7 +81,12 @@ const JwtInterceptors = () => {
     },
   );
 
-  return { instance };
+  useEffect(() => {
+    return () => {
+      http.interceptors.request.eject(requestInterceptor);
+      http.interceptors.response.eject(responseInterceptor);
+    };
+  }, [responseInterceptor, requestInterceptor]);
 };
 
-export default JwtInterceptors;
+export { http, useHttp };

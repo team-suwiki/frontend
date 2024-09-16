@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { Lecture } from 'api';
+import { evaluation, examInfo } from 'api/Lecture';
 import { lectureState } from 'app/recoilStore';
 import {
   Button,
@@ -23,8 +23,6 @@ const CATEGORY = ['강의평가', '시험정보'] as const;
 export type Category = (typeof CATEGORY)[number];
 
 const LectureInfo = () => {
-  const lecture = Lecture();
-
   const { query, setParams } = useRouter();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -35,20 +33,20 @@ const LectureInfo = () => {
 
   const selectId = query.id || '';
 
-  const evaluation = useInfiniteQuery({
+  const evaluations = useInfiniteQuery({
     queryKey: ['lecture', 'evaluationList', selectId],
     initialPageParam: 1,
-    queryFn: ({ pageParam }) => lecture.evaluation(selectId, pageParam),
+    queryFn: ({ pageParam }) => evaluation(selectId, pageParam),
     getNextPageParam: (lastPage) => (lastPage && !lastPage.isLast ? lastPage.nextPage : undefined),
     gcTime: CACHE_TIME.MINUTE_0,
     staleTime: CACHE_TIME.MINUTE_0,
     enabled: isLogin && selectId !== '' && selectCategory === '강의평가',
   });
 
-  const testInfo = useInfiniteQuery({
+  const testInfos = useInfiniteQuery({
     queryKey: ['lecture', 'examList', selectId],
     initialPageParam: 1,
-    queryFn: ({ pageParam }) => lecture.examInfo(selectId, pageParam),
+    queryFn: ({ pageParam }) => examInfo(selectId, pageParam),
     getNextPageParam: (lastPage) => (lastPage && !lastPage.isLast ? lastPage.nextPage : undefined),
     gcTime: CACHE_TIME.MINUTE_0,
     staleTime: CACHE_TIME.MINUTE_0,
@@ -63,7 +61,7 @@ const LectureInfo = () => {
       return updatedParams;
     });
   };
-  const isWritten = !!evaluation.data?.pages[0]?.written || !!testInfo.data?.pages[0]?.written;
+  const isWritten = !!evaluations.data?.pages[0]?.written || !!testInfos.data?.pages[0]?.written;
 
   return (
     <AppContainer>

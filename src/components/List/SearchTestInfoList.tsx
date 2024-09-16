@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { User } from 'api';
+import { reportExamInfo } from 'api/User';
 import type { ExamPost } from 'types/exam';
 
 interface SearchTestInfoListProps {
@@ -22,11 +22,10 @@ const SearchTestInfoList = ({ page, isLogin }: SearchTestInfoListProps) => {
 };
 
 export const Subject = ({ lecture }: { lecture: ExamPost }) => {
-  const user = User();
   const examDifficultySet = lecture.examDifficulty;
   const onReport = () => {
     if (window.confirm('정말 신고하시겠어요? \n*허위 신고 시 제재가 가해질 수 있습니다!'))
-      user.reportExamInfo({ examIdx: lecture.id, content: lecture.content });
+      reportExamInfo({ examIdx: lecture.id, content: lecture.content });
   };
   const examDifficulty = {
     '매우 쉬움': <DataColor id="cyan">매우 쉬움</DataColor>,

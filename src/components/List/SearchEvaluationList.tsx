@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { Lecture, User } from 'api';
+import { evaluation } from 'api/Lecture';
+import { reportEvaluation } from 'api/User';
 import { EvaluationDetail, Spinner } from 'components';
 import { CACHE_TIME } from 'constants/cacheTime';
 import { fakeEvaluationList } from 'constants/placeholderData';
@@ -30,14 +31,13 @@ const SearchEvaluationList = () => {
   const { ref, inView } = useInView();
 
   const isLogin = isLoginStorage();
-  const lecture = Lecture();
   const selectCategory = (query.category as Category) || '강의평가';
   const selectId = query.id || '';
 
   const { data, isLoading, isFetchingNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ['lecture', 'evaluationList', selectId],
     initialPageParam: 1,
-    queryFn: ({ pageParam }) => lecture.evaluation(selectId, pageParam),
+    queryFn: ({ pageParam }) => evaluation(selectId, pageParam),
     getNextPageParam: (lastPage) => (lastPage && !lastPage.isLast ? lastPage.nextPage : undefined),
     gcTime: CACHE_TIME.MINUTE_0,
     staleTime: CACHE_TIME.MINUTE_0,
@@ -83,11 +83,10 @@ const SearchEvaluationList = () => {
 };
 
 export const Subject = ({ lecture }: { lecture: Review }) => {
-  const user = User();
   const [modal, setModal] = useState(false);
   const onReport = () => {
     if (window.confirm('정말 신고하시겠어요? \n*허위 신고 시 제재가 가해질 수 있습니다!'))
-      user.reportEvaluation({ evaluateIdx: lecture.id, content: '신고' });
+      reportEvaluation({ evaluateIdx: lecture.id, content: '신고' });
   };
 
   return (

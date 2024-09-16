@@ -1,5 +1,5 @@
 import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
-import { Lecture } from 'api';
+import { search } from 'api/Lecture';
 import { LectureContainer } from 'components';
 import { fakeLectureList } from 'constants/placeholderData';
 import useRouter from 'hooks/useRouter';
@@ -8,7 +8,6 @@ import { useInView } from 'react-intersection-observer';
 import { FlexWrap } from 'styles/common';
 
 const LectureList = () => {
-  const lecture = Lecture();
   const { query } = useRouter();
   const { ref, inView } = useInView();
 
@@ -19,7 +18,7 @@ const LectureList = () => {
   const { data, isFetchingNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ['search', value, option, major],
     initialPageParam: 1,
-    queryFn: ({ pageParam }) => lecture.search(value, pageParam, option, major),
+    queryFn: ({ pageParam }) => search(value, pageParam, option, major),
     getNextPageParam: (lastPage) => (lastPage && !lastPage.isLast ? lastPage.nextPage : undefined),
     placeholderData: keepPreviousData,
   });
