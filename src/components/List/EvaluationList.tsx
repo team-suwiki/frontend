@@ -1,16 +1,40 @@
 import styled from '@emotion/styled';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { User } from 'api';
 import { EvaluationDetail, Modal, Spinner, WriteEvaluation } from 'components';
-import useUserQuery from 'hooks/useUserQuery';
-import { useState } from 'react';
+import { CACHE_TIME } from 'constants/cacheTime';
+import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import StarRatings from 'react-star-ratings';
 import type { Review } from 'types/evaluate';
 import { floatFix } from 'utils/floatFix';
+import { isLoginStorage } from 'utils/loginStorage';
 import { subStr } from 'utils/subString';
 
 const EvaluationList = () => {
-  const { evaluationList } = useUserQuery();
-  const { data, isLoading, isFetchingNextPage, ref } = evaluationList();
+  const user = User();
+  const { ref, inView } = useInView();
+  // 내가 작성한 평가
+  const { data, isLoading, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
+    queryKey: ['myInfo', 'myEvaluation'],
+    initialPageParam: 1,
+    queryFn: ({ pageParam }) => user.evaluateList(pageParam),
+    getNextPageParam: (lastPage) => {
+      if (lastPage && !lastPage.isLast) return lastPage.nextPage;
+
+      return undefined;
+    },
+    enabled: isLoginStorage(),
+    gcTime: CACHE_TIME.MINUTE_30,
+    staleTime: CACHE_TIME.MINUTE_30,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [inView, fetchNextPage]);
+
   if (isLoading) return <Spinner id="myInfo" />;
   const isExistData = data?.pages[0]?.data.length === 0;
 

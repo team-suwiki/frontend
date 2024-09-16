@@ -1,16 +1,39 @@
 import styled from '@emotion/styled';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { User } from 'api';
 import { Modal, Spinner, WriteTestInfo } from 'components';
-import useUserQuery from 'hooks/useUserQuery';
-import { useState } from 'react';
+import { CACHE_TIME } from 'constants/cacheTime';
+import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import type { MyExam } from 'types/exam';
+import { isLoginStorage } from 'utils/loginStorage';
 import { subStr } from 'utils/subString';
 
 import type { ExamDiff } from './SearchTestInfoList';
 
 const TestInfoList = () => {
-  const { testInfoList } = useUserQuery();
-  const { data, isLoading, isFetchingNextPage, ref } = testInfoList();
+  const user = User();
+  const { ref, inView } = useInView();
+  const { data, isLoading, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
+    queryKey: ['myInfo', 'myExamInfo'],
+    initialPageParam: 1,
+    queryFn: ({ pageParam }) => user.examInfoList(pageParam),
+    getNextPageParam: (lastPage) => {
+      if (lastPage && !lastPage.isLast) return lastPage.nextPage;
+
+      return undefined;
+    },
+    enabled: isLoginStorage(),
+    gcTime: CACHE_TIME.MINUTE_30,
+    staleTime: CACHE_TIME.MINUTE_30,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [inView, fetchNextPage]);
+
   const isExistData = data?.pages[0]?.data.length === 0;
 
   if (isLoading || !data) return <Spinner id="myInfo" />;
