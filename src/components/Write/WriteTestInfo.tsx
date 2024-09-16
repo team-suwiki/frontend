@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
+import { useMutation } from '@tanstack/react-query';
 import { User } from 'api';
 import SemesterSelect from 'components/SemesterSelect';
 import { ExamSelectOptions, examTypes, semesters } from 'constants/placeholderData';
 import { useState } from 'react';
-import { useMutation } from 'react-query';
 import type { MyExam } from 'types/exam';
 
 type WriteTestProps = 'examDifficulty' | 'examInfo';
@@ -42,27 +42,29 @@ const WriteTestInfo = ({ setModalIsOpen, row, type }: WriteTestInfoProps) => {
     };
     change[name as WriteTestProps]();
   };
-  const examWriting = useMutation(() =>
-    user.writeExamInfo(row.id.toString(), {
-      lectureName: row.lectureName,
-      professor: row.professor,
-      selectedSemester,
-      examInfo: examOptions.examInfo.join(', '),
-      examType,
-      examDifficulty: examOptions.examDifficulty,
-      content,
-    }),
-  );
+  const examWriting = useMutation({
+    mutationFn: () =>
+      user.writeExamInfo(row.id.toString(), {
+        lectureName: row.lectureName,
+        professor: row.professor,
+        selectedSemester,
+        examInfo: examOptions.examInfo.join(', '),
+        examType,
+        examDifficulty: examOptions.examDifficulty,
+        content,
+      }),
+  });
 
-  const examInfoUpdate = useMutation(() =>
-    user.UpdateExamInfo(row.id.toString(), {
-      selectedSemester,
-      examInfo: examOptions.examInfo.join(', '),
-      examType,
-      examDifficulty: examOptions.examDifficulty,
-      content,
-    }),
-  );
+  const examInfoUpdate = useMutation({
+    mutationFn: () =>
+      user.UpdateExamInfo(row.id.toString(), {
+        selectedSemester,
+        examInfo: examOptions.examInfo.join(', '),
+        examType,
+        examDifficulty: examOptions.examDifficulty,
+        content,
+      }),
+  });
 
   const onTest = () => {
     if (selectedSemester === '' || selectedSemester === '선택') return alert('학기를 선택해주세요');
