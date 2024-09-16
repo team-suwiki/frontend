@@ -6,16 +6,15 @@ import { Button, SearchTestInfoList, Spinner } from 'components';
 import { CACHE_TIME } from 'constants/cacheTime';
 import { fakeEvaluationList } from 'constants/placeholderData';
 import useRouter from 'hooks/useRouter';
+import useUserStore from 'hooks/useUserStore';
 import type { Category } from 'pages/LectureInfo';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { isLoginStorage } from 'utils/loginStorage';
 
 const IsTestInfo = () => {
+  const { isLogin } = useUserStore();
   const { query } = useRouter();
   const { ref, inView } = useInView();
-
-  const isLogin = isLoginStorage();
 
   const selectCategory = (query.category as Category) || '강의평가';
   const selectId = query.id || '';

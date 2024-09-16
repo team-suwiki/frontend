@@ -1,5 +1,5 @@
 import { TextField } from '@mui/material';
-import { Auth } from 'api';
+import { quit } from 'api/Auth';
 import { Button } from 'components';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
@@ -7,7 +7,6 @@ import { AuthWrapper, Container, Img, Sub, Title } from 'styles/common';
 import type { UserLogin } from 'types/user';
 
 const Exit = () => {
-  const { quit } = Auth();
   const {
     register,
     handleSubmit,

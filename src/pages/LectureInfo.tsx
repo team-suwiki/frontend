@@ -14,10 +14,10 @@ import {
 } from 'components';
 import { CACHE_TIME } from 'constants/cacheTime';
 import useRouter from 'hooks/useRouter';
+import useUserStore from 'hooks/useUserStore';
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { AppContainer } from 'styles/common';
-import { isLoginStorage } from 'utils/loginStorage';
 
 const CATEGORY = ['강의평가', '시험정보'] as const;
 export type Category = (typeof CATEGORY)[number];
@@ -29,7 +29,7 @@ const LectureInfo = () => {
   const lectureInfo = useRecoilValue(lectureState);
 
   const selectCategory = (query.category as Category) || '강의평가';
-  const isLogin = isLoginStorage();
+  const { isLogin } = useUserStore();
 
   const selectId = query.id || '';
 

@@ -24,7 +24,7 @@ export interface ResponseUserCheckID {
 
 export interface UserLoginResponse {
   AccessToken: string;
-  RefreshToken?: string;
+  RefreshToken: string;
 }
 
 export interface ResetPassword {

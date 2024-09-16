@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { tokenState } from 'app/recoilStore';
 import axios from 'axios';
+import { TOKEN_KEY } from 'constants/auth';
 import jwtDecode, { type JwtPayload } from 'jwt-decode';
 import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
-import { isLoginStorage } from 'utils/loginStorage';
+import { getAccessToken, setToken } from 'utils/tokenManeger';
 
 import { logout, refresh } from '../api/etc';
+import useUserStore from './useUserStore';
 
 const PROXY_URL = window.location.hostname === 'localhost' ? '/api' : '/proxy';
 
@@ -16,10 +16,11 @@ const http = axios.create({
 });
 
 const useHttp = () => {
-  const [token, setToken] = useRecoilState(tokenState);
+  const { isLogin } = useUserStore();
 
   //액세스토큰 유효성 검사
   const isAccessTokenValid = async () => {
+    const token = getAccessToken();
     if (!token) return false;
     const tokenInfo = jwtDecode<JwtPayload>(token);
     if (tokenInfo.exp && tokenInfo.exp <= Date.now() / 1000) return false;
@@ -33,7 +34,7 @@ const useHttp = () => {
       if (res?.status !== 200) {
         throw new Error(`Response status is ${res?.status}`);
       } else {
-        setToken(res.data.AccessToken);
+        setToken(TOKEN_KEY, res.data.AccessToken);
 
         return res;
       }
@@ -45,7 +46,6 @@ const useHttp = () => {
   const requestInterceptor = http.interceptors.request.use(
     async (config) => {
       const tokenValid = await isAccessTokenValid();
-      const isLogin = isLoginStorage();
       if (!isLogin) {
         config.headers['Content-Type'] = 'application/json';
       } else if (isLogin && !tokenValid) {
@@ -56,7 +56,7 @@ const useHttp = () => {
         }
         config.headers['Authorization'] = result?.data.AccessToken;
       } else {
-        config.headers['Authorization'] = token;
+        config.headers['Authorization'] = getAccessToken();
       }
 
       return config;

@@ -3,13 +3,14 @@ import { info } from 'api/User';
 import { UserInfo } from 'components';
 import { CACHE_TIME } from 'constants/cacheTime';
 import { fakeUserInfo } from 'constants/placeholderData';
-import { isLoginStorage } from 'utils/loginStorage';
+import useUserStore from 'hooks/useUserStore';
 
 const MyInfo = () => {
+  const { isLogin } = useUserStore();
   const { data, isLoading } = useQuery({
     queryKey: ['myInfo'],
     queryFn: info,
-    enabled: isLoginStorage(),
+    enabled: isLogin,
     gcTime: CACHE_TIME.MINUTE_30,
     staleTime: CACHE_TIME.MINUTE_30,
   });

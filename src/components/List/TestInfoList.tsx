@@ -3,15 +3,16 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { deleteExamInfo, examInfoList } from 'api/User';
 import { Modal, Spinner, WriteTestInfo } from 'components';
 import { CACHE_TIME } from 'constants/cacheTime';
+import useUserStore from 'hooks/useUserStore';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import type { MyExam } from 'types/exam';
-import { isLoginStorage } from 'utils/loginStorage';
 import { subStr } from 'utils/subString';
 
 import type { ExamDiff } from './SearchTestInfoList';
 
 const TestInfoList = () => {
+  const { isLogin } = useUserStore();
   const { ref, inView } = useInView();
   const { data, isLoading, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
     queryKey: ['myInfo', 'myExamInfo'],
@@ -22,7 +23,7 @@ const TestInfoList = () => {
 
       return undefined;
     },
-    enabled: isLoginStorage(),
+    enabled: isLogin,
     gcTime: CACHE_TIME.MINUTE_30,
     staleTime: CACHE_TIME.MINUTE_30,
   });

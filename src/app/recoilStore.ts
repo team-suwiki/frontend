@@ -24,7 +24,7 @@ export const lectureState = atom<Review>({
   },
 });
 
-export const tokenState = atom<string | null>({
-  key: 'tokenState',
-  default: null,
+export const isLoginState = atom<boolean>({
+  key: 'isLoginState',
+  default: false,
 });

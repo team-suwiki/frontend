@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import { UserAccount, UserPoint } from 'components';
 import { fakeUserInfo } from 'constants/placeholderData';
+import useUserStore from 'hooks/useUserStore';
 import { useNavigate } from 'react-router-dom';
 import type { UserProfileInfo } from 'types/user';
-import { isLoginStorage } from 'utils/loginStorage';
 
 interface UserInfoProps {
   my: UserProfileInfo;
@@ -11,7 +11,7 @@ interface UserInfoProps {
 
 const UserInfo = ({ my }: UserInfoProps) => {
   const navigate = useNavigate();
-  const isLogin = isLoginStorage();
+  const { isLogin } = useUserStore();
 
   const handleNavigate = () => {
     if (isLogin) {

@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { Button } from 'components';
+import useUserStore from 'hooks/useUserStore';
 import { useNavigate } from 'react-router-dom';
 import type { SetNumber, SetTeamNumber } from 'types/common';
 import type { LectureDetailItem } from 'types/lecture';
 import { floatFix } from 'utils/floatFix';
-import { isLoginStorage } from 'utils/loginStorage';
 
 interface LectureInfoBoxProps {
   current: LectureDetailItem;
@@ -16,7 +16,7 @@ const LectureInfoBox = ({ current }: LectureInfoBoxProps) => {
   const homeworkSet = Math.floor(current.lectureHomeworkAvg ?? 0) as SetNumber;
   const difficultySet = Math.floor(current.lectureDifficultyAvg ?? 0) as SetNumber;
 
-  const isLogin = isLoginStorage();
+  const { isLogin } = useUserStore();
 
   return (
     <Content id="top">

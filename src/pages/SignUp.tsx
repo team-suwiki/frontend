@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { TextField } from '@mui/material';
-import { Auth } from 'api';
+import { checkEmail, checkId, register as signup } from 'api/Auth';
 import { useEffect, useState } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { AuthWrapper, Button, Checking, Container, Img } from 'styles/common';
@@ -15,7 +15,6 @@ import {
 type CheckList = 'terms' | 'privacy';
 
 const SignUp = () => {
-  const { checkId, checkEmail, register: signup } = Auth();
   const {
     register,
     handleSubmit,
@@ -45,8 +44,8 @@ const SignUp = () => {
     setCheckList(isChecked ? ['terms', 'privacy'] : []);
   };
 
-  const handleIdCheck = () => checkId(setIdCheck, { loginId: formValues.loginId });
-  const handleEmailCheck = () => checkEmail(setEmailCheck, { email: formValues.email });
+  const handleIdCheck = () => checkId({ loginId: formValues.loginId });
+  const handleEmailCheck = () => checkEmail({ email: formValues.email });
   const onSubmit: SubmitHandler<UserJoin> = ({ loginId, email, password }) =>
     signup({ loginId, email, password });
 

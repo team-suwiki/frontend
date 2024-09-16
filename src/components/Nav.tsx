@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import { logout } from 'api/etc';
+import useUserStore from 'hooks/useUserStore';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { isLoginStorage } from 'utils/loginStorage';
 
 const Nav = () => {
+  const { isLogin, logout } = useUserStore();
   const navigate = useNavigate();
   const [click, setClick] = useState(false);
   const handleClick = () => setClick((prevClick) => !prevClick);
@@ -57,12 +57,12 @@ const Nav = () => {
 
       <NavMenu onClick={handleClick} click={click}>
         <NavLinks onClick={() => navigate('notice')}>공지사항</NavLinks>
-        {!isLoginStorage() ? (
+        {!isLogin ? (
           <NavLinks onClick={() => navigate('login')}>로그인</NavLinks>
         ) : (
           <NavLinks onClick={logout}>로그아웃</NavLinks>
         )}
-        {!isLoginStorage() ? (
+        {!isLogin ? (
           <NavLinks id="signup" onClick={() => navigate('signup')}>
             회원가입
           </NavLinks>

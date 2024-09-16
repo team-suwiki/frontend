@@ -1,5 +1,5 @@
 import { TextField } from '@mui/material';
-import { Auth } from 'api';
+import { findPw } from 'api/Auth';
 import { Button } from 'components';
 import { Loader } from 'components/Etc/Spinner';
 import { type SubmitHandler, useForm } from 'react-hook-form';
@@ -8,7 +8,6 @@ import type { UserFindPw } from 'types/user';
 import { validateEmail } from 'utils/validate';
 
 const PwSearch = () => {
-  const { findPw } = Auth();
   const {
     register,
     handleSubmit,

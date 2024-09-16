@@ -3,13 +3,13 @@ import { detail } from 'api/Lecture';
 import { CACHE_TIME } from 'constants/cacheTime';
 import { fakeLectureInfo } from 'constants/placeholderData';
 import useRouter from 'hooks/useRouter';
-import { isLoginStorage } from 'utils/loginStorage';
+import useUserStore from 'hooks/useUserStore';
 
 import LectureInfoBox from './LectureInfoBox';
 
 const LectureDetail = () => {
   const { query } = useRouter();
-  const isLogin = isLoginStorage();
+  const { isLogin } = useUserStore();
   const selectId = query.id || '';
 
   const { data } = useQuery({

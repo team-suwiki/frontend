@@ -1,12 +1,14 @@
 import { searchFavorite, type } from 'api/etc';
 import { favoriting, unfavoriting } from 'api/Major';
-import { tokenState } from 'app/recoilStore';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { getStorage, isLoginStorage, setStorage } from 'utils/loginStorage';
+import { getStorage, setStorage } from 'utils/loginStorage';
+import { getAccessToken } from 'utils/tokenManeger';
+
+import useUserStore from './useUserStore';
 
 const useFavoriteMajor = (setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>) => {
+  const { isLogin } = useUserStore();
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
@@ -18,11 +20,11 @@ const useFavoriteMajor = (setModalIsOpen: React.Dispatch<React.SetStateAction<bo
   const [db, setData] = useState<string[]>([]);
   const [favoriteDb, setFavoriteDb] = useState<string[]>([]);
   const [selectedMajor, setSelectedMajor] = useState(majorType);
-  const token = useRecoilValue(tokenState);
+  const token = getAccessToken();
 
   // 즐겨찾기 추가/삭제
   const onFavoriteMajor = (e: React.MouseEvent<HTMLImageElement>) => {
-    if (!isLoginStorage()) {
+    if (!isLogin) {
       alert('로그인 후 이용해주세요');
       navigate('/login');
 
@@ -60,10 +62,10 @@ const useFavoriteMajor = (setModalIsOpen: React.Dispatch<React.SetStateAction<bo
         setFavoriteDb(data as string[]);
       }
     };
-    if (isLoginStorage()) {
+    if (isLogin) {
       loadList();
     }
-  }, [token]);
+  }, [isLogin, token]);
 
   // 전공 리스트 불러오기
   useEffect(() => {

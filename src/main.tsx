@@ -7,7 +7,6 @@ import { BadGateway } from 'pages';
 import ReactDOM from 'react-dom/client';
 import { initialize } from 'react-ga';
 import { BrowserRouter } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
 
 import App from './App';
 
@@ -18,6 +17,7 @@ export const queryClient = new QueryClient({
     queries: {
       refetchOnMount: false,
       refetchOnWindowFocus: false,
+      retry: 0,
     },
   },
 });
@@ -25,11 +25,9 @@ export const queryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <AsyncBoundary pendingFallback={<></>} rejectedFallback={() => <BadGateway />}>
     <QueryClientProvider client={queryClient}>
-      <RecoilRoot>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </RecoilRoot>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
       <ReactQueryDevtools />
     </QueryClientProvider>
   </AsyncBoundary>,

@@ -1,14 +1,15 @@
 import styled from '@emotion/styled';
 import { Button, EvaluationList, TestInfoList } from 'components';
+import useUserStore from 'hooks/useUserStore';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { isLoginStorage } from 'utils/loginStorage';
 
 const MyPosting = () => {
+  const { isLogin } = useUserStore();
   const navigate = useNavigate();
   const [evaluation, setEvaluation] = useState(true);
 
-  if (!isLoginStorage()) {
+  if (!isLogin) {
     return (
       <FlexContainer>
         <FlexContainer id="col">

@@ -1,5 +1,5 @@
 import { TextField } from '@mui/material';
-import { Auth } from 'api';
+import { resetPassword } from 'api/Auth';
 import { Button } from 'components';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { AuthWrapper, Checking, Container, Img, Sub, Title } from 'styles/common';
@@ -7,7 +7,6 @@ import type { ResetPassword as ResetPasswordType } from 'types/user';
 import { validatePassword } from 'utils/validate';
 
 const ResetPassword = () => {
-  const { resetPassword } = Auth();
   const {
     register,
     handleSubmit,

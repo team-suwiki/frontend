@@ -15,3 +15,11 @@ export type SortOption = {
 
 export type SetTeamNumber = 0 | 1;
 export type SetNumber = SetTeamNumber | 2;
+
+export interface APIErrorResponse {
+  code: string;
+  error: string;
+  exception: string;
+  message: string;
+  status: number;
+}

@@ -6,13 +6,13 @@ import { EvaluationDetail, Spinner } from 'components';
 import { CACHE_TIME } from 'constants/cacheTime';
 import { fakeEvaluationList } from 'constants/placeholderData';
 import useRouter from 'hooks/useRouter';
+import useUserStore from 'hooks/useUserStore';
 import type { Category } from 'pages/LectureInfo';
 import { Fragment, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import StarRatings from 'react-star-ratings';
 import type { Review } from 'types/evaluate';
 import { floatFix } from 'utils/floatFix';
-import { isLoginStorage } from 'utils/loginStorage';
 
 export const FakeList = () => {
   return (
@@ -27,10 +27,10 @@ export const FakeList = () => {
 };
 
 const SearchEvaluationList = () => {
+  const { isLogin } = useUserStore();
   const { query } = useRouter();
   const { ref, inView } = useInView();
 
-  const isLogin = isLoginStorage();
   const selectCategory = (query.category as Category) || '강의평가';
   const selectId = query.id || '';
 

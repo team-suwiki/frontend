@@ -1,25 +1,19 @@
 import styled from '@emotion/styled';
 import { TextField } from '@mui/material';
-import { Auth } from 'api';
-import type { FieldValues, SubmitHandler } from 'react-hook-form';
+import useUserStore from 'hooks/useUserStore';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { AuthWrapper, Container, Img } from 'styles/common';
+import type { UserLogin } from 'types/user';
 
 const Login = () => {
+  const { login } = useUserStore();
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm();
-  const { login } = Auth();
-
-  const loginAttempt: SubmitHandler<FieldValues> = async (data) => {
-    const loginId = data.loginId as string;
-    const password = data.password as string;
-    await login({ loginId, password });
-  };
+  } = useForm<UserLogin>();
 
   const goIdSearch = () => navigate('/idsearch');
   const goPwSearch = () => navigate('/pwsearch');
@@ -32,7 +26,7 @@ const Login = () => {
         <source srcSet="/images/signup.png" type="image/png" />
         <Img src="images/signup.svg" alt="signup" width={400} height={350} />
       </picture>
-      <AuthWrapper onSubmit={handleSubmit(loginAttempt)}>
+      <AuthWrapper onSubmit={handleSubmit((data) => login(data))}>
         <Title>로그인</Title>
         <TextField
           variant="standard"

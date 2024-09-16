@@ -3,15 +3,16 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { deleteEvaluation, evaluateList } from 'api/User';
 import { EvaluationDetail, Modal, Spinner, WriteEvaluation } from 'components';
 import { CACHE_TIME } from 'constants/cacheTime';
+import useUserStore from 'hooks/useUserStore';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import StarRatings from 'react-star-ratings';
 import type { Review } from 'types/evaluate';
 import { floatFix } from 'utils/floatFix';
-import { isLoginStorage } from 'utils/loginStorage';
 import { subStr } from 'utils/subString';
 
 const EvaluationList = () => {
+  const { isLogin } = useUserStore();
   const { ref, inView } = useInView();
   // 내가 작성한 평가
   const { data, isLoading, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
@@ -23,7 +24,7 @@ const EvaluationList = () => {
 
       return undefined;
     },
-    enabled: isLoginStorage(),
+    enabled: isLogin,
     gcTime: CACHE_TIME.MINUTE_30,
     staleTime: CACHE_TIME.MINUTE_30,
   });
