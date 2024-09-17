@@ -1,17 +1,17 @@
 import styled from '@emotion/styled';
 
-const footerMenu = [
+const FOOTER_LINKS = [
   {
-    title: '이용약관',
-    pageLink: 'https://sites.google.com/view/suwiki-policy-terms',
+    label: '이용약관',
+    url: 'https://sites.google.com/view/suwiki-policy-terms',
   },
   {
-    title: '개인정보처리방침',
-    pageLink: 'https://sites.google.com/view/suwiki-policy-privacy',
+    label: '개인정보처리방침',
+    url: 'https://sites.google.com/view/suwiki-policy-privacy',
   },
   {
-    title: '문의하기',
-    pageLink: 'https://alike-pump-ae3.notion.site/SUWIKI-2cd58468e90b404fbd3e30b8b2c0b699',
+    label: '문의하기',
+    url: 'https://alike-pump-ae3.notion.site/SUWIKI-2cd58468e90b404fbd3e30b8b2c0b699',
   },
 ];
 
@@ -19,10 +19,10 @@ const Footer = () => {
   return (
     <FootWrapper>
       <Foot>
-        {footerMenu.map(({ title, pageLink }) => (
-          <FooterContent key={pageLink} onClick={() => window.open(pageLink)}>
-            {title}
-          </FooterContent>
+        {FOOTER_LINKS.map(({ label, url }) => (
+          <FooterLink href={url} key={url}>
+            {label}
+          </FooterLink>
         ))}
       </Foot>
     </FootWrapper>
@@ -45,12 +45,10 @@ const Foot = styled.div`
   align-items: center;
 `;
 
-const FooterContent = styled.div`
+const FooterLink = styled.a`
   color: #222222;
   font-size: 1rem;
-  &:hover {
-    cursor: pointer;
-  }
+
   @media screen and (max-width: 550px) {
     font-size: 0.9rem;
   }
