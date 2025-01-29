@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { versionCheck } from 'app/versionCheck';
 import { LectureSearch, MainBanner, MainList, MajorSelect, OptionSelect } from 'components';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,8 +6,6 @@ import { sortOptions } from '../constants/placeholderData';
 
 const Main = () => {
   const navigate = useNavigate();
-
-  versionCheck();
 
   return (
     <div>
