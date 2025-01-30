@@ -1,4 +1,4 @@
-import { isLoginState } from 'app/recoilStore';
+import { isLoginState } from 'atom/recoilStore';
 import { RouterProvider } from 'react-router';
 import type { MutableSnapshot } from 'recoil';
 import { RecoilRoot } from 'recoil';

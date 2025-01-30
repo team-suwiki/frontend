@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { login as loginApi, refresh as refreshApi } from 'api/Auth';
-import { isLoginState } from 'app/recoilStore';
+import { isLoginState } from 'atom/recoilStore';
 import type { AxiosError } from 'axios';
 import { REFRESH_KEY, TOKEN_KEY } from 'constants/auth';
 import { useLocation } from 'react-router';

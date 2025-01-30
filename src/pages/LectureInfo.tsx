@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { evaluation, examInfo } from 'api/Lecture';
-import { lectureState } from 'app/recoilStore';
+import { lectureState } from 'atom/recoilStore';
 import {
   Button,
   IsTestInfo,
