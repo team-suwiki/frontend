@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { detail } from 'api/Notice';
 import { Spinner } from 'components';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router';
 
 export const NoticeBox = () => {
   const [searchParams] = useSearchParams();

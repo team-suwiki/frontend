@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Button } from 'components';
 import useUserStore from 'hooks/useUserStore';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import type { SetNumber, SetTeamNumber } from 'types/common';
 import type { LectureDetailItem } from 'types/lecture';
 import { floatFix } from 'utils/floatFix';

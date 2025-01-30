@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import useUserStore from 'hooks/useUserStore';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 const Nav = () => {
   const { isLogin, logout } = useUserStore();
@@ -56,18 +56,18 @@ const Nav = () => {
       </MobileIcon>
 
       <NavMenu onClick={handleClick} click={click}>
-        <NavLinks onClick={() => navigate('notice')}>공지사항</NavLinks>
+        <NavLinks onClick={() => navigate('/notice')}>공지사항</NavLinks>
         {!isLogin ? (
-          <NavLinks onClick={() => navigate('login')}>로그인</NavLinks>
+          <NavLinks onClick={() => navigate('/login')}>로그인</NavLinks>
         ) : (
           <NavLinks onClick={logout}>로그아웃</NavLinks>
         )}
         {!isLogin ? (
-          <NavLinks id="signup" onClick={() => navigate('signup')}>
+          <NavLinks id="signup" onClick={() => navigate('/signup')}>
             회원가입
           </NavLinks>
         ) : (
-          <NavLinks id="signup" onClick={() => navigate('myinformation')}>
+          <NavLinks id="signup" onClick={() => navigate('/myinfo')}>
             내 정보
           </NavLinks>
         )}

@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { TextField } from '@mui/material';
 import useUserStore from 'hooks/useUserStore';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { AuthWrapper, Container, Img } from 'styles/common';
 import type { UserLogin } from 'types/user';
 

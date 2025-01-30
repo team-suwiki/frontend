@@ -1,6 +1,6 @@
 import { MajorSearch, Modal } from 'components';
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import { Arrows, OptionBox, SelectedOption, SelectedOption_M } from 'styles/common';
 import { subStr } from 'utils/subString';
 

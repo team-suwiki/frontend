@@ -1,11 +1,13 @@
-import type { KeyboardEvent} from 'react';
+import type { KeyboardEvent } from 'react';
 import { useEffect, useRef } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router';
 
 interface SearchHook {
-  (key?: string): [
+  (
+    key?: string,
+  ): [
     React.MutableRefObject<HTMLInputElement | null>,
-    (e: KeyboardEvent<HTMLInputElement>) => void
+    (e: KeyboardEvent<HTMLInputElement>) => void,
   ];
 }
 

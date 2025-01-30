@@ -130,6 +130,3 @@ table {
 body {
   font-family: 'Pretendard Variable', sans-serif;
 }
-#root > div {
-  min-height: 60vh;
-}
