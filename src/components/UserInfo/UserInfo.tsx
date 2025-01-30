@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { UserAccount, UserPoint } from 'components';
 import { fakeUserInfo } from 'constants/placeholderData';
 import useUserStore from 'hooks/useUserStore';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import type { UserProfileInfo } from 'types/user';
 
 interface UserInfoProps {
@@ -24,7 +24,7 @@ const UserInfo = ({ my }: UserInfoProps) => {
   const optionSlice = (start: number, end: number) => {
     return option.slice(start, end).map(({ title, page }) => (
       <FlexContainer id="use" key={title}>
-        <FlexContainer id="last" onClick={() => navigate(`/${page}`)}>
+        <FlexContainer id="last" onClick={() => navigate(page)}>
           {title}
         </FlexContainer>
       </FlexContainer>
@@ -120,21 +120,21 @@ export default UserInfo;
 const option = [
   {
     title: '이용 제한 내역',
-    page: 'banreason',
+    page: '/banreason',
   },
   {
     title: '구매이력',
-    page: 'historytest',
+    page: '/historytest',
   },
   {
     title: '비밀번호 변경',
-    page: 'resetpassword',
+    page: '/resetpassword',
   },
   {
     title: '회원 탈퇴',
-    page: 'exit',
+    page: '/exit',
   },
-];
+] as const;
 const urlOption = [
   {
     title: '피드백 전송',

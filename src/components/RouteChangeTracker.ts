@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { initialize, pageview } from 'react-ga';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 const RouteChangeTracker = () => {
   const location = useLocation();

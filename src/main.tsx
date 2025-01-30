@@ -6,7 +6,6 @@ import AsyncBoundary from 'components/AsyncBoundary';
 import { BadGateway } from 'pages';
 import ReactDOM from 'react-dom/client';
 import { initialize } from 'react-ga';
-import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
 
@@ -25,9 +24,7 @@ export const queryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <AsyncBoundary pendingFallback={<></>} rejectedFallback={() => <BadGateway />}>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <App />
       <ReactQueryDevtools />
     </QueryClientProvider>
   </AsyncBoundary>,

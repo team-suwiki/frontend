@@ -4,7 +4,7 @@ import { list } from 'api/Notice';
 import { Spinner } from 'components';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 const Notice = () => {
   const navigate = useNavigate();

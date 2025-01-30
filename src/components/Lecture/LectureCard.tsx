@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import StarRatings from 'react-star-ratings';
 import type { LectureDetailItem } from 'types/lecture';
 import { floatFix } from 'utils/floatFix';

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { LectureSearch, MainBanner, MainList, MajorSelect, OptionSelect } from 'components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import { sortOptions } from '../constants/placeholderData';
 

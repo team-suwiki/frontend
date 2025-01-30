@@ -2,21 +2,18 @@ import Footer from 'components/Footer';
 import Nav from 'components/Nav';
 import RouteChangeTracker from 'components/RouteChangeTracker';
 import { useHttp } from 'hooks/useHttp';
+import { Outlet } from 'react-router';
 
 import ScrollButton from './ScrollButton';
 
-interface LayoutProps {
-  children: React.ReactNode;
-}
-
-const Layout = ({ children }: LayoutProps) => {
+const Layout = () => {
   useHttp();
 
   return (
     <>
       <RouteChangeTracker />
       <Nav />
-      {children}
+      <Outlet />
       <ScrollButton />
       <Footer />
     </>

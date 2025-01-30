@@ -1,7 +1,7 @@
 import { searchFavorite, type } from 'api/etc';
 import { favoriting, unfavoriting } from 'api/Major';
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router';
 import { getStorage, setStorage } from 'utils/loginStorage';
 import { getAccessToken } from 'utils/tokenManeger';
 

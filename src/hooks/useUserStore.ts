@@ -3,7 +3,7 @@ import { login as loginApi, refresh as refreshApi } from 'api/Auth';
 import { isLoginState } from 'app/recoilStore';
 import type { AxiosError } from 'axios';
 import { REFRESH_KEY, TOKEN_KEY } from 'constants/auth';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { useRecoilState } from 'recoil';
 import type { APIErrorResponse } from 'types/common';
 import type { UserLogin } from 'types/user';

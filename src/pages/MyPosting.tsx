@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Button, EvaluationList, TestInfoList } from 'components';
 import useUserStore from 'hooks/useUserStore';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 const MyPosting = () => {
   const { isLogin } = useUserStore();
