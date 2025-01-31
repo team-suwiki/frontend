@@ -3,6 +3,7 @@ import './styles/globalStyle.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import AsyncBoundary from 'components/AsyncBoundary';
+import { ToastProvider } from 'components/ToastProvider';
 import { BadGateway } from 'pages';
 import ReactDOM from 'react-dom/client';
 import { initialize } from 'react-ga';
@@ -26,6 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <QueryClientProvider client={queryClient}>
       <App />
       <ReactQueryDevtools />
+      <ToastProvider />
     </QueryClientProvider>
   </AsyncBoundary>,
 );

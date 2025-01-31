@@ -17,7 +17,7 @@ export default defineConfig({
   resolve: {
     alias: {
       api: '/src/api',
-      app: '/src/app',
+      atom: '/src/atom',
       constants: '/src/constants',
       components: '/src/components',
       hooks: '/src/hooks',

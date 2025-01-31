@@ -19,7 +19,7 @@
     "paths": {
       "*": ["*"],
       "api/*": ["api/*"],
-      "app/*": ["app/*"],
+      "atom/*": ["atom/*"],
       "constants/*": ["constants/*"],
       "components/*": ["components/*"],
       "hooks/*": ["hooks/*"],

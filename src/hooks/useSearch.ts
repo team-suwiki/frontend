@@ -2,6 +2,8 @@ import type { KeyboardEvent } from 'react';
 import { useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 
+import { useToast } from './useToast';
+
 interface SearchHook {
   (
     key?: string,
@@ -15,6 +17,7 @@ const useSearch: SearchHook = (key = 'q') => {
   const [searchParams] = useSearchParams();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const getValue = (key: string) => searchParams.get(key) || '';
   const value = getValue(key);
@@ -25,7 +28,7 @@ const useSearch: SearchHook = (key = 'q') => {
     if (e.key !== 'Enter') return;
     const inputValue = inputRef.current?.value.trim() || '';
     if (inputValue.length < 2) {
-      alert('두 글자 이상 입력해주세요');
+      toast({ message: '두 글자 이상 입력해주세요' });
 
       return;
     }
