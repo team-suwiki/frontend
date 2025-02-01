@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import type { PropsWithChildren} from 'react';
+import type { PropsWithChildren } from 'react';
 import { useEffect } from 'react';
 
 interface ModalProps {
@@ -7,6 +7,7 @@ interface ModalProps {
   onRequestClose: () => void;
 }
 
+/** @deprecated common/Modal을 사용해주세요 */
 const Modal = ({ isOpen, onRequestClose, children }: PropsWithChildren<ModalProps>) => {
   useEffect(() => {
     const onKeyPress = (e: KeyboardEvent) => {

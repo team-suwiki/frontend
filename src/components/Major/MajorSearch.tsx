@@ -78,6 +78,10 @@ const ModalWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  max-width: 600px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 16px;
 `;
 
 const TitleWrapper = styled.div`

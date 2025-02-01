@@ -1,4 +1,5 @@
-import { MajorSearch, Modal } from 'components';
+import { MajorSearch } from 'components';
+import { Modal } from 'components/common';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { Arrows, OptionBox, SelectedOption, SelectedOption_M } from 'styles/common';
@@ -9,8 +10,12 @@ const MajorSelect = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const majorType = searchParams.get('majorType') || '전체';
 
-  const handleOptionBoxClick = () => setModalIsOpen(true);
-  const handleModalRequestClose = () => setModalIsOpen(false);
+  const handleOptionBoxClick = () => {
+    setModalIsOpen(true);
+  };
+  const handleModalRequestClose = () => {
+    setModalIsOpen(false);
+  };
 
   return (
     <>
@@ -23,7 +28,7 @@ const MajorSelect = () => {
           src={`/images/icon_${modalIsOpen ? 'up' : 'down'}_arrow_solid_24.svg`}
         />
       </OptionBox>
-      <Modal isOpen={modalIsOpen} onRequestClose={handleModalRequestClose}>
+      <Modal opened={modalIsOpen} onClose={handleModalRequestClose}>
         <MajorSearch setModalIsOpen={setModalIsOpen} />
       </Modal>
     </>
