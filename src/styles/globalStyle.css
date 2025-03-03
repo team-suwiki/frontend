@@ -129,4 +129,15 @@ table {
 }
 body {
   font-family: 'Pretendard Variable', sans-serif;
+  min-height: 100vh;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
 }

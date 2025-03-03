@@ -13,7 +13,9 @@ const Layout = () => {
     <>
       <RouteChangeTracker />
       <Nav />
-      <Outlet />
+      <main>
+        <Outlet />
+      </main>
       <ScrollButton />
       <Footer />
     </>
