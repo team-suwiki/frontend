@@ -1,12 +1,11 @@
 import styled from '@emotion/styled';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { deleteEvaluation, evaluateList } from 'api/User';
-import { EvaluationDetail, Modal, Spinner, WriteEvaluation } from 'components';
+import { EvaluationDetail, Modal, Spinner, StarRating, WriteEvaluation } from 'components';
 import { CACHE_TIME } from 'constants/cacheTime';
 import useUserStore from 'hooks/useUserStore';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import StarRatings from 'react-star-ratings';
 import type { Review } from 'types/evaluate';
 import { floatFix } from 'utils/floatFix';
 import { subStr } from 'utils/subString';
@@ -101,16 +100,7 @@ export const EvaluationCard = ({ row }: { row: Review }) => {
           </EditButton>
 
           <div style={{ marginBottom: '38px' }} />
-          <StarRatings
-            rating={row.totalAvg}
-            starRatedColor="#336af8"
-            numberOfStars={5}
-            name="rating"
-            starDimension="18px"
-            starSpacing="0px"
-            svgIconPath="M17.563,21.56a1,1,0,0,1-.466-.115L12,18.765l-5.1,2.68a1,1,0,0,1-1.451-1.054l.974-5.676L2.3,10.7A1,1,0,0,1,2.856,8.99l5.7-.828L11.1,3A1.04,1.04,0,0,1,12.9,3l2.549,5.164,5.7.828A1,1,0,0,1,21.7,10.7l-4.124,4.02.974,5.676a1,1,0,0,1-.985,1.169Z"
-            svgIconViewBox="0 0 24 24"
-          />
+          <StarRating rating={row.totalAvg} />
           <Rate>{floatFix(row.totalAvg!, 1)}</Rate>
           <ModalOpen
             onClick={() => {

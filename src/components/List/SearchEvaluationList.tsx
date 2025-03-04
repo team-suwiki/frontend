@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { evaluation } from 'api/Lecture';
 import { reportEvaluation } from 'api/User';
-import { EvaluationDetail, Spinner } from 'components';
+import { EvaluationDetail, Spinner, StarRating } from 'components';
 import { CACHE_TIME } from 'constants/cacheTime';
 import { fakeEvaluationList } from 'constants/placeholderData';
 import useRouter from 'hooks/useRouter';
@@ -10,7 +10,6 @@ import useUserStore from 'hooks/useUserStore';
 import type { Category } from 'pages/LectureInfo';
 import { Fragment, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import StarRatings from 'react-star-ratings';
 import type { Review } from 'types/evaluate';
 import { floatFix } from 'utils/floatFix';
 
@@ -97,16 +96,7 @@ export const Subject = ({ lecture }: { lecture: Review }) => {
             <YearText>{lecture.selectedSemester}</YearText>
           </TitleWrapper>
           <EditButton onClick={onReport}>신고</EditButton>
-          <StarRatings
-            rating={lecture.totalAvg}
-            starRatedColor="#336af8"
-            numberOfStars={5}
-            name="rating"
-            starDimension="18px"
-            starSpacing="0px"
-            svgIconPath="M17.563,21.56a1,1,0,0,1-.466-.115L12,18.765l-5.1,2.68a1,1,0,0,1-1.451-1.054l.974-5.676L2.3,10.7A1,1,0,0,1,2.856,8.99l5.7-.828L11.1,3A1.04,1.04,0,0,1,12.9,3l2.549,5.164,5.7.828A1,1,0,0,1,21.7,10.7l-4.124,4.02.974,5.676a1,1,0,0,1-.985,1.169Z"
-            svgIconViewBox="0 0 24 24"
-          />
+          <StarRating rating={lecture.totalAvg} />
           <Rate>{floatFix(lecture.totalAvg, 1)}</Rate>
           <ModalOpen
             onClick={() => {
@@ -124,16 +114,7 @@ export const Subject = ({ lecture }: { lecture: Review }) => {
             <EditButton onClick={onReport}>신고</EditButton>
           </div>
           <div>
-            <StarRatings
-              rating={lecture.totalAvg}
-              starRatedColor="#336af8"
-              numberOfStars={5}
-              name="rating"
-              starDimension="18px"
-              starSpacing="0px"
-              svgIconPath="M17.563,21.56a1,1,0,0,1-.466-.115L12,18.765l-5.1,2.68a1,1,0,0,1-1.451-1.054l.974-5.676L2.3,10.7A1,1,0,0,1,2.856,8.99l5.7-.828L11.1,3A1.04,1.04,0,0,1,12.9,3l2.549,5.164,5.7.828A1,1,0,0,1,21.7,10.7l-4.124,4.02.974,5.676a1,1,0,0,1-.985,1.169Z"
-              svgIconViewBox="0 0 24 24"
-            />
+            <StarRating rating={lecture.totalAvg} />
             <Rate>{floatFix(lecture.totalAvg, 1)}</Rate>
             <ModalOpen
               onClick={() => {

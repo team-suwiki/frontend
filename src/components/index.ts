@@ -1,4 +1,5 @@
 export { default as BanFrame } from './BanFrame';
+export { StarRating } from './common';
 export { default as ErrorFrame } from './ErrorFrame';
 export { default as Button } from './Etc/Button';
 export { default as Modal } from './Etc/Modal';
