@@ -1,13 +1,13 @@
 import { REFRESH_KEY, TOKEN_KEY } from 'constants/auth';
 
-const localstroage = window.localStorage;
+const localStorage = window.localStorage;
 
 export const setToken = (key: typeof TOKEN_KEY | typeof REFRESH_KEY, token: string) => {
-  localstroage.setItem(key, token);
+  localStorage.setItem(key, token);
 };
 
 export const removeToken = (key: typeof TOKEN_KEY | typeof REFRESH_KEY) => {
-  localstroage.removeItem(key);
+  localStorage.removeItem(key);
 };
 
 export const removeTokenAll = () => {
@@ -15,6 +15,6 @@ export const removeTokenAll = () => {
   removeToken(REFRESH_KEY);
 };
 
-export const getAccessToken = () => localstroage.getItem(TOKEN_KEY);
+export const getAccessToken = () => localStorage.getItem(TOKEN_KEY);
 
-export const getRefreshToken = () => localstroage.getItem(REFRESH_KEY);
+export const getRefreshToken = () => localStorage.getItem(REFRESH_KEY);

@@ -51,8 +51,7 @@ const useFavoriteMajor = (setModalIsOpen: React.Dispatch<React.SetStateAction<bo
   };
 
   // 전공 선택 변경
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const majorChange = (e: any) => setSelectedMajor(e.target.value);
+  const majorChange = (e: React.ChangeEvent<HTMLSelectElement>) => setSelectedMajor(e.target.value);
 
   // 즐겨찾기 리스트 불러오기
   useEffect(() => {

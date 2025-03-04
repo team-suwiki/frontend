@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios';
 import { TOKEN_KEY } from 'constants/auth';
 import jwtDecode, { type JwtPayload } from 'jwt-decode';
