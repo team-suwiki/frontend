@@ -1,10 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { login as loginApi, refresh as refreshApi } from 'api/Auth';
-import { isLoginState } from 'atom/recoilStore';
 import type { AxiosError } from 'axios';
 import { REFRESH_KEY, TOKEN_KEY } from 'constants/auth';
 import { useLocation } from 'react-router';
-import { useRecoilState } from 'recoil';
+import { useAuthStore } from 'stores/authStore';
 import type { APIErrorResponse } from 'types/common';
 import type { UserLogin } from 'types/user';
 import { removeTokenAll, setToken } from 'utils/tokenManager';
@@ -13,11 +12,9 @@ import useRouter from './useRouter';
 
 const useUserStore = () => {
   const queryClient = useQueryClient();
-
+  const { isLogin, setIsLogin } = useAuthStore();
   const { push } = useRouter();
   const { state } = useLocation();
-
-  const [isLogin, setIsLogin] = useRecoilState(isLoginState);
 
   const { mutateAsync: login } = useMutation({
     mutationFn: (formData: UserLogin) => loginApi(formData),
