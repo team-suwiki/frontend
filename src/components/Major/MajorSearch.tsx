@@ -128,7 +128,7 @@ const TabMenu = styled.div`
   }
 `;
 
-const MajorBox = styled.div`
+const MajorBox = styled.select`
   width: 95%;
   margin-top: 10px;
   border-radius: 10px;

@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { evaluation, examInfo } from 'api/Lecture';
-import { lectureState } from 'atom/recoilStore';
 import {
   Button,
   IsTestInfo,
@@ -16,17 +15,37 @@ import { CACHE_TIME } from 'constants/cacheTime';
 import useRouter from 'hooks/useRouter';
 import useUserStore from 'hooks/useUserStore';
 import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
 import { AppContainer } from 'styles/common';
+import type { Review } from 'types/evaluate';
 
 const CATEGORY = ['강의평가', '시험정보'] as const;
 export type Category = (typeof CATEGORY)[number];
+
+//TODO: 2년 전 내 의도 파악 후.. 제거
+const lectureInfo: Review = {
+  id: -1,
+  lectureName: '',
+  professor: '',
+  semesterList: '',
+  selectedSemester: '',
+  examInfo: '',
+  examType: '',
+  examDifficulty: '',
+  content: '',
+  satisfaction: -1,
+  learning: -1,
+  honey: -1,
+  team: -1,
+  difficulty: -1,
+  homework: -1,
+  majorType: '',
+  totalAvg: -1,
+};
 
 const LectureInfo = () => {
   const { query, setParams } = useRouter();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const lectureInfo = useRecoilValue(lectureState);
 
   const selectCategory = (query.category as Category) || '강의평가';
   const { isLogin } = useUserStore();
