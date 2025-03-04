@@ -2,7 +2,7 @@ import axios from 'axios';
 import { TOKEN_KEY } from 'constants/auth';
 import jwtDecode, { type JwtPayload } from 'jwt-decode';
 import { useEffect } from 'react';
-import { getAccessToken, setToken } from 'utils/tokenManeger';
+import { getAccessToken, setToken } from 'utils/tokenManager';
 
 import { logout, refresh } from '../api/etc';
 import useUserStore from './useUserStore';

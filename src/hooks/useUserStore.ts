@@ -7,7 +7,7 @@ import { useLocation } from 'react-router';
 import { useRecoilState } from 'recoil';
 import type { APIErrorResponse } from 'types/common';
 import type { UserLogin } from 'types/user';
-import { removeTokenAll, setToken } from 'utils/tokenManeger';
+import { removeTokenAll, setToken } from 'utils/tokenManager';
 
 import useRouter from './useRouter';
 

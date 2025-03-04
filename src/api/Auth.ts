@@ -10,7 +10,7 @@ import type {
   UserLogin,
   UserLoginResponse,
 } from 'types/user';
-import { getRefreshToken } from 'utils/tokenManeger';
+import { getRefreshToken } from 'utils/tokenManager';
 
 import { http } from '../hooks/useHttp';
 

@@ -2,7 +2,7 @@ import { isLoginState } from 'atom/recoilStore';
 import { RouterProvider } from 'react-router';
 import type { MutableSnapshot } from 'recoil';
 import { RecoilRoot } from 'recoil';
-import { getAccessToken } from 'utils/tokenManeger';
+import { getAccessToken } from 'utils/tokenManager';
 
 import { router } from './__generated__/routes.generated';
 
