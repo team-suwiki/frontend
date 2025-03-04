@@ -17,11 +17,11 @@ export default defineConfig({
   resolve: {
     alias: {
       api: '/src/api',
-      atom: '/src/atom',
       constants: '/src/constants',
       components: '/src/components',
       hooks: '/src/hooks',
       pages: '/src/pages',
+      stores: '/src/stores',
       styles: '/src/styles',
       types: '/src/types',
       utils: '/src/utils',

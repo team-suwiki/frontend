@@ -2,10 +2,10 @@ import axios from 'axios';
 import { TOKEN_KEY } from 'constants/auth';
 import jwtDecode, { type JwtPayload } from 'jwt-decode';
 import { useEffect } from 'react';
+import { useAuthStore } from 'stores/authStore';
 import { getAccessToken, setToken } from 'utils/tokenManager';
 
 import { logout, refresh } from '../api/etc';
-import useUserStore from './useUserStore';
 
 const PROXY_URL = window.location.hostname === 'localhost' ? '/api' : '/proxy';
 
@@ -15,7 +15,7 @@ const http = axios.create({
 });
 
 const useHttp = () => {
-  const { isLogin } = useUserStore();
+  const { isLogin } = useAuthStore();
 
   //액세스토큰 유효성 검사
   const isAccessTokenValid = async () => {
