@@ -1,5 +1,6 @@
 import type { RoutePath } from '__generated__/routes.types';
 import styled from '@emotion/styled';
+import { motion } from 'framer-motion';
 import { useBodyScrollLock } from 'hooks/useBodyScrollLock';
 import useUserStore from 'hooks/useUserStore';
 import { useState } from 'react';
@@ -38,7 +39,7 @@ const Nav = () => {
             <source srcSet="/images/logo.avif" type="image/avif" />
             <source srcSet="/images/logo.webp" type="image/webp" />
             <source srcSet="/images/logo.png" type="image/png" />
-            <NavLogo src="/images/logo.png" alt="수위키 로고" width={110} height={30} />
+            <NavLogo src="/images/logo.png" alt="수위키 로고" height={24} />
           </picture>
         </LogoWrapper>
 
@@ -47,7 +48,34 @@ const Nav = () => {
           aria-expanded={isOpen}
           aria-label={isOpen ? '메뉴 닫기' : '메뉴 열기'}
         >
-          {isOpen ? <CloseIcon /> : <MenuIcon />}
+          <MenuIconContainer>
+            <MenuLine
+              animate={isOpen ? 'open' : 'closed'}
+              variants={{
+                closed: { rotate: 0, translateY: 0 },
+                open: { rotate: 45, translateY: 7 },
+              }}
+              transition={{ duration: 0.3 }}
+            />
+
+            <MenuLine
+              animate={isOpen ? 'open' : 'closed'}
+              variants={{
+                closed: { opacity: 1 },
+                open: { opacity: 0 },
+              }}
+              transition={{ duration: 0.2 }}
+            />
+
+            <MenuLine
+              animate={isOpen ? 'open' : 'closed'}
+              variants={{
+                closed: { rotate: 0, translateY: 0 },
+                open: { rotate: -45, translateY: -7 },
+              }}
+              transition={{ duration: 0.3 }}
+            />
+          </MenuIconContainer>
         </MenuButton>
 
         <NavMenu isOpen={isOpen}>
@@ -120,7 +148,6 @@ const NavMenu = styled.div<NavMenuProps>`
   gap: 2rem;
 
   @media screen and (max-width: 768px) {
-    justify-content: center;
     flex-direction: column;
     width: 100%;
     height: calc(100vh - 60px);
@@ -129,8 +156,9 @@ const NavMenu = styled.div<NavMenuProps>`
     left: ${({ isOpen }) => (isOpen ? 0 : '-100%')};
     transition: all 0.3s ease;
     background: #ffffff;
-    z-index: 999;
-    padding: 2rem;
+    z-index: 10;
+    padding: 56px 8px;
+    gap: 16px;
   }
 `;
 
@@ -150,39 +178,29 @@ const NavItem = styled.button<{ isHighlight?: boolean }>`
 
   @media screen and (max-width: 768px) {
     width: 100%;
-    text-align: center;
+    text-align: left;
     padding: 1rem;
+    font-size: 24px;
+    font-weight: 600;
   }
 `;
 
-const CloseIcon = () => (
-  <svg
-    stroke="currentColor"
-    fill="currentColor"
-    strokeWidth="0"
-    viewBox="0 0 16 16"
-    height="1em"
-    width="1em"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M7.116 8l-4.558 4.558.884.884L8 8.884l4.558 4.558.884-.884L8.884 8l4.558-4.558-.884-.884L8 7.116 3.442 2.558l-.884.884L7.116 8z"
-    />
-  </svg>
-);
+const MenuIconContainer = styled.div`
+  width: 24px;
+  height: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding: 4px 0;
+`;
 
-const MenuIcon = () => (
-  <svg
-    stroke="currentColor"
-    fill="currentColor"
-    strokeWidth="0"
-    viewBox="0 0 512 512"
-    height="1em"
-    width="1em"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M32 96v64h448V96H32zm0 128v64h448v-64H32zm0 128v64h448v-64H32z" />
-  </svg>
-);
+const MenuLine = styled(motion.div)`
+  width: 24px;
+  height: 2px;
+  background-color: black;
+  border-radius: 2px;
+  transform-origin: center;
+  position: relative;
+`;
