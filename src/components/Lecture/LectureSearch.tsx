@@ -50,7 +50,7 @@ export default LectureSearch;
 
 const SearchWrapper = styled.div`
   display: flex;
-  width: 100%;
+  width: 90%;
   flex-direction: column;
   align-items: center;
   padding: 1rem 0;

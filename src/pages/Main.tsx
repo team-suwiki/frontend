@@ -19,9 +19,7 @@ const Main = () => {
             </FlexWrapper>
             <OptionSelect list={sortOptions} itemTitle="name" location="main" />
           </HeadSelection>
-          <HeadSelection>
-            <MainList />
-          </HeadSelection>
+          <MainList />
         </SearchWrapper>
         <Button
           onClick={() => {
@@ -45,7 +43,7 @@ const Container = styled.div`
   margin: 0 auto;
 
   @media screen and (max-width: 960px) {
-    width: 90%;
+    width: 100%;
   }
 `;
 
@@ -61,7 +59,7 @@ const HeadSelection = styled.div`
   display: flex;
   align-items: flex-start;
   padding-bottom: 10px;
-  width: 100%;
+  width: 90%;
   justify-content: flex-start;
 `;
 

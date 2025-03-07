@@ -116,7 +116,7 @@ const Title = styled.div`
 
 const Professor = styled.div`
   display: flex;
-  color: #515151;
+  color: #b8bdc8;
   font-size: 14px;
   margin: 0.3rem 0;
 
@@ -150,9 +150,7 @@ const Rate = styled.span`
 `;
 
 const LectureWrapper = styled.div`
-  width: 100%;
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
+  border-bottom: 1px solid #e0e0e0;
   margin-bottom: 10px;
   cursor: pointer;
 `;
