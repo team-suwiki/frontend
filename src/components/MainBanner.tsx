@@ -27,7 +27,7 @@ const Banner = styled.div`
   width: 100%;
   background-color: #eeeeee;
   cursor: default;
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: 768px) {
     display: none;
   }
 `;

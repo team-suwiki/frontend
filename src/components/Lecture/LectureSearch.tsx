@@ -1,24 +1,47 @@
 import styled from '@emotion/styled';
+import { AnimatePresence, motion } from 'framer-motion';
 import useSearch from 'hooks/useSearch';
+import { useEffect, useState } from 'react';
+
+const SEARCH_TEXT = ['교수명', '강의명', '학과명', '키워드'];
 
 const LectureSearch = () => {
   const [input, onKeypress] = useSearch();
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
 
-  const handleMouseLeave = () => {
-    if (document.activeElement instanceof HTMLElement) {
-      document.activeElement.blur();
-    }
-  };
+  useEffect(() => {
+    const rotationInterval = setInterval(() => {
+      setCurrentTextIndex((prev) => (prev + 1) % SEARCH_TEXT.length);
+    }, 2_000);
+
+    return () => {
+      clearInterval(rotationInterval);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <SearchWrapper>
-      <SearchTitle>강의평가 검색</SearchTitle>
-      <SearchInput
-        ref={input}
-        placeholder="강의명, 교수명으로 원하는 강의평가를 찾아보세요"
-        onKeyDown={onKeypress}
-        onMouseLeave={handleMouseLeave}
-      />
+      <SearchTitle>
+        <TitleFirstLine>
+          <SlotMachineContainer>
+            <AnimatePresence initial={false}>
+              <SlotMachineItem
+                key={currentTextIndex}
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -30, opacity: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                {SEARCH_TEXT[currentTextIndex]}
+              </SlotMachineItem>
+            </AnimatePresence>
+          </SlotMachineContainer>
+          으로
+        </TitleFirstLine>
+        <TitleSecondLine>강의평가를 찾아보세요!</TitleSecondLine>
+      </SearchTitle>
+      <SearchInput ref={input} placeholder="검색어를 입력해주세요" onKeyDown={onKeypress} />
     </SearchWrapper>
   );
 };
@@ -35,12 +58,34 @@ const SearchWrapper = styled.div`
 
 const SearchTitle = styled.div`
   display: flex;
+  flex-direction: column;
   font-size: 1.5rem;
   padding-top: 4rem;
   padding-bottom: 1.5rem;
-
   font-weight: 600;
+  line-height: 1.2;
   width: 100%;
+`;
+
+const TitleFirstLine = styled.div`
+  display: flex;
+`;
+
+const TitleSecondLine = styled.div`
+  display: block;
+  width: 100%;
+`;
+
+const SlotMachineContainer = styled.span`
+  height: 1.8rem;
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  min-width: 4rem;
+`;
+
+const SlotMachineItem = styled(motion.div)`
+  position: absolute;
 `;
 
 const SearchInput = styled.input`
