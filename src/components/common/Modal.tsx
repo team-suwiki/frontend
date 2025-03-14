@@ -1,7 +1,7 @@
-import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { Portal, Slot } from '@radix-ui/themes';
 import { useBodyScrollLock } from 'hooks/useBodyScrollLock';
-import type { PropsWithChildren } from 'react';
+import { type PropsWithChildren, useEffect } from 'react';
 
 export interface ModalProps {
   opened?: boolean;
@@ -13,29 +13,50 @@ export const Modal = ({
   opened = false,
   onClose,
   asChild = false,
-
   children,
   ...restArticleProps
 }: PropsWithChildren<ModalProps>) => {
   useBodyScrollLock(opened);
 
-  const ModalContents = asChild ? Slot : Content;
+  useEffect(() => {
+    if (!opened) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose?.();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [opened, onClose]);
+
+  const ModalContents = asChild ? Slot : 'article';
 
   return opened ? (
-    <ModalWrapper
-      onKeyDown={(e) => {
-        if (e.key === 'Escape') {
-          onClose?.();
-        }
-      }}
-    >
-      <Overlay onClick={onClose} />
-      <ModalContents {...restArticleProps}>{children}</ModalContents>
-    </ModalWrapper>
+    <Portal css={modalWrapperStyles}>
+      <div
+        tabIndex={0}
+        role="button"
+        css={overlayStyles}
+        onClick={onClose}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === 'Space') {
+            onClose?.();
+          }
+        }}
+      />
+      <ModalContents css={contentStyles} {...restArticleProps}>
+        {children}
+      </ModalContents>
+    </Portal>
   ) : null;
 };
 
-const ModalWrapper = styled(Portal)`
+const modalWrapperStyles = css`
   position: fixed;
   top: 0;
   left: 0;
@@ -48,7 +69,7 @@ const ModalWrapper = styled(Portal)`
   z-index: 10;
 `;
 
-const Overlay = styled.div`
+const overlayStyles = css`
   position: absolute;
   z-index: -1;
   width: 100%;
@@ -57,16 +78,14 @@ const Overlay = styled.div`
   opacity: 0.7;
 `;
 
-const Content = styled.article`
+const contentStyles = css`
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  width: 100%;
   min-width: 335px;
   height: fit-content;
   max-height: 100%;
-  padding: 40px 24px;
   white-space: pre-wrap;
   overflow: auto;
   text-align: center;
